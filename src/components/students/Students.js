@@ -20,9 +20,10 @@ const Students = () => {
 
   const checkPassHandler = (studentId) => {
     const passInput = prompt("enter password");
-    const passGet = userStudents.map((st) => st.password);
+    const selectedStudent = userStudents.filter((st) => st.id === studentId);
+    const getPassword = selectedStudent.map((st) => st.password);
 
-    if (+passInput === +passGet) {
+    if (+passInput === +getPassword) {
       removeStudentHandler(studentId);
     } else {
       alert("wrong password!");
