@@ -7,11 +7,25 @@ const StudentForm = React.memo((props) => {
   const [enteredLName, setEnteredLName] = useState("");
   const [enteredYear, setEnteredYear] = useState("");
   const [enteredPass, setEnteredPass] = useState("");
+  
+  const [formValid, setFormValid] = useState(false);
 
   const [formValid, setFormValid] = useState(false);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    
+     if (
+      enteredFName == "" ||
+      enteredLName == "" ||
+      enteredYear == "" ||
+      enteredPass == ""
+    ) {
+      setFormValid(false);
+      alert("pls fill all fields");
+      return;
+    }
+    setFormValid(true);
 
     if (
       enteredFName == "" ||
