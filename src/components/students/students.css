@@ -1,0 +1,47 @@
+.form-control {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
+.form-control input {
+  width: 60%;
+}
+
+.add-btn,
+.sort-btn,
+.delete-btn {
+  padding: 6px 16px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  background-color: #0abd34;
+  color: white;
+  font-weight: 600;
+  border: none;
+  transition: all 0.2s;
+}
+.delete-btn {
+  background-color: #ff0019;
+}
+.add-btn:hover,
+.sort-btn:hover,
+.delete-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.6);
+}
+
+.add-btn:active,
+.sort-btn:active,
+.delete-btn:active {
+  transform: translateY(0px);
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+li {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 10px;
+}
