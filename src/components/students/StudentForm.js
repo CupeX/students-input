@@ -75,7 +75,7 @@ const StudentForm = React.memo((props) => {
           </div>
           <div>
             <button type="submit" className=" add-btn">
-              Add Ingredient
+              Add student
             </button>
           </div>
         </form>
