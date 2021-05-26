@@ -14,22 +14,10 @@ const StudentForm = React.memo((props) => {
     e.preventDefault();
 
     if (
-      enteredFName == "" ||
-      enteredLName == "" ||
-      enteredYear == "" ||
-      enteredPass == ""
-    ) {
-      setFormValid(false);
-      alert("pls fill all fields");
-      return;
-    }
-    setFormValid(true);
-
-    if (
-      enteredFName == "" ||
-      enteredLName == "" ||
-      enteredYear == "" ||
-      enteredPass == ""
+      enteredFName === "" ||
+      enteredLName === "" ||
+      enteredYear === "" ||
+      enteredPass === ""
     ) {
       setFormValid(false);
       alert("pls fill all fields");
