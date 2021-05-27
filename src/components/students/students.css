@@ -6,22 +6,28 @@
 .form-control input {
   width: 60%;
 }
-
 .add-btn,
 .sort-btn,
 .delete-btn {
   padding: 6px 16px;
   text-transform: uppercase;
   border-radius: 6px;
-  background-color: #0abd34;
   color: white;
   font-weight: 600;
   border: none;
   transition: all 0.2s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+  outline: none;
+}
+.add-btn,
+.sort-btn {
+  background: linear-gradient(to right bottom, #0abd34, #024e14);
 }
 .delete-btn {
-  background-color: #ff0019;
+  background: linear-gradient(to right bottom, #ff0019, #96000f);
+}
+.sort-btn {
+  background-color: #0abd34;
 }
 .add-btn:hover,
 .sort-btn:hover,
@@ -38,8 +44,8 @@
   transform: translateY(0px);
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
 }
-.sort-select:active{
-  transform:  translateY(-2px);
+.sort-select:active {
+  transform: translateY(-2px);
 }
 
 ul {
@@ -50,4 +56,25 @@ li {
   display: flex;
   justify-content: space-between;
   padding-bottom: 10px;
+}
+table {
+  width: 100%;
+  margin: 20px 0;
+  border-spacing: 4px;
+  border-collapse: collapse;
+  text-align: start;
+}
+th {
+  text-align: start;
+}
+tr {
+  height: 40px;
+}
+td {
+  border-bottom: 2px solid #9f9f9f;
+  cursor: pointer;
+}
+.btn-td {
+  text-align: end;
+  border: none;
 }

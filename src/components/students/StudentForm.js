@@ -1,43 +1,45 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import Card from "../UI/Card";
+import Card from '../UI/Card';
 
-const StudentForm = React.memo((props) => {
-  const [enteredFName, setEnteredFName] = useState("");
-  const [enteredLName, setEnteredLName] = useState("");
-  const [enteredYear, setEnteredYear] = useState("");
-  const [enteredPass, setEnteredPass] = useState("");
+const StudentForm = React.memo(props => {
+  const [enteredFName, setEnteredFName] = useState('');
+  const [enteredLName, setEnteredLName] = useState('');
+  const [enteredYear, setEnteredYear] = useState('');
+  const [enteredPass, setEnteredPass] = useState('');
   const [addedOrderNumber, setAddedOrderNumber] = useState(1);
 
   const [formValid, setFormValid] = useState(false);
 
-  const submitHandler = (e) => {
+  const submitHandler = e => {
     e.preventDefault();
 
     if (
-      enteredFName === "" ||
-      enteredLName === "" ||
-      enteredYear === "" ||
-      enteredPass === ""
+      enteredFName === '' ||
+      enteredLName === '' ||
+      enteredYear === '' ||
+      enteredPass === ''
     ) {
       setFormValid(false);
-      alert("pls fill all fields");
+      alert('pls fill all fields');
       return;
     }
     setFormValid(true);
 
-    props.onAddStudent({
+    const student = {
       fName: enteredFName,
       lName: enteredLName,
       year: enteredYear,
       password: enteredPass,
       order: addedOrderNumber,
-    });
+    };
 
-    setEnteredFName("");
-    setEnteredLName("");
-    setEnteredYear("");
-    setEnteredPass("");
+    props.onAddStudent(student);
+
+    setEnteredFName('');
+    setEnteredLName('');
+    setEnteredYear('');
+    setEnteredPass('');
     setAddedOrderNumber(addedOrderNumber + 1);
   };
 
@@ -52,7 +54,7 @@ const StudentForm = React.memo((props) => {
               type="text"
               id="fName"
               value={enteredFName}
-              onChange={(e) => {
+              onChange={e => {
                 setEnteredFName(e.target.value);
               }}
             />
@@ -63,7 +65,7 @@ const StudentForm = React.memo((props) => {
               type="text"
               id="lName"
               value={enteredLName}
-              onChange={(e) => {
+              onChange={e => {
                 setEnteredLName(e.target.value);
               }}
             />
@@ -74,7 +76,7 @@ const StudentForm = React.memo((props) => {
               type="number"
               id="year"
               value={enteredYear}
-              onChange={(e) => {
+              onChange={e => {
                 setEnteredYear(e.target.value);
               }}
             />
@@ -85,7 +87,7 @@ const StudentForm = React.memo((props) => {
               type="number"
               id="pass"
               value={enteredPass}
-              onChange={(e) => {
+              onChange={e => {
                 setEnteredPass(e.target.value);
               }}
             />
