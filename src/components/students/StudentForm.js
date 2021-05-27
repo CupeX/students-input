@@ -7,6 +7,7 @@ const StudentForm = React.memo((props) => {
   const [enteredLName, setEnteredLName] = useState("");
   const [enteredYear, setEnteredYear] = useState("");
   const [enteredPass, setEnteredPass] = useState("");
+  const [addedOrderNumber, setAddedOrderNumber] = useState(1);
 
   const [formValid, setFormValid] = useState(false);
 
@@ -30,12 +31,14 @@ const StudentForm = React.memo((props) => {
       lName: enteredLName,
       year: enteredYear,
       password: enteredPass,
+      order: addedOrderNumber,
     });
 
     setEnteredFName("");
     setEnteredLName("");
     setEnteredYear("");
     setEnteredPass("");
+    setAddedOrderNumber(addedOrderNumber + 1);
   };
 
   return (

@@ -29,12 +29,17 @@
   transform: translateY(-2px);
   box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.6);
 }
-
+.sort-select {
+  outline: none;
+}
 .add-btn:active,
 .sort-btn:active,
 .delete-btn:active {
   transform: translateY(0px);
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
+}
+.sort-select:active{
+  transform:  translateY(-2px);
 }
 
 ul {
