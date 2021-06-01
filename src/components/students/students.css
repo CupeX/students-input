@@ -8,7 +8,8 @@
 }
 .add-btn,
 .sort-btn,
-.view-btn,
+.change-btn,
+.info-btn,
 .delete-btn {
   padding: 6px 16px;
   text-transform: uppercase;
@@ -23,14 +24,21 @@
   font-weight: 400;
   cursor: pointer;
 }
-.view-btn a {
+.info-btn {
+  border-radius: 50%;
+  padding: 6px 12px;
+}
+.change-btn a {
   text-decoration: none;
   color: white;
 }
 .add-btn,
 .sort-btn,
-.view-btn {
+.change-btn {
   background: linear-gradient(to right bottom, #0abd34, #024e14);
+}
+.info-btn {
+  background: linear-gradient(to right bottom, #0095ff, #002641);
 }
 .delete-btn {
   background: linear-gradient(to right bottom, #ff0019, #96000f);
@@ -40,7 +48,7 @@
 }
 .add-btn:hover,
 .sort-btn:hover,
-.view-btn:hover,
+.change-btn:hover,
 .delete-btn:hover {
   transform: translateY(-2px);
   box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.6);
@@ -50,7 +58,7 @@
 }
 .add-btn:active,
 .sort-btn:active,
-.view-btn:active,
+.change-btn:active,
 .delete-btn:active {
   transform: translateY(0px);
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
@@ -79,14 +87,19 @@ th {
   text-align: start;
 }
 tr {
-  height: 40px;
+  height: 50px;
 }
 td {
-  border-bottom: 2px solid #9f9f9f;
+  border-bottom: 1px solid #9f9f9f;
 }
 .btn-td {
-  text-align: end;
   border: none;
+}
+.change-td {
+  text-align: center;
+}
+.delete-td {
+  text-align: end;
 }
 
 .react-datepicker-wrapper,

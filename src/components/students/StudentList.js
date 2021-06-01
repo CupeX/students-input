@@ -1,6 +1,4 @@
-import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
-import NewStudent from '../../pages/NewStudent';
-import StudentDetails from './StudentDetails';
+import { Link, useRouteMatch } from 'react-router-dom';
 import './students.css';
 
 const StudentsList = props => {
@@ -11,6 +9,7 @@ const StudentsList = props => {
       <table>
         <thead>
           <tr>
+            <th>info</th>
             <th>first name</th>
             <th>last name</th>
             <th>birth</th>
@@ -19,6 +18,11 @@ const StudentsList = props => {
         <tbody>
           {props.students.map(st => (
             <tr key={st.id} id={st.id}>
+              <td className="btn-td">
+                <Link to={`${match.url}/${st.id}`}>
+                  <button className="info-btn">&#8505;</button>
+                </Link>
+              </td>
               <td>
                 <span>{st.fName} </span>
               </td>
@@ -26,20 +30,15 @@ const StudentsList = props => {
                 <span>{st.lName} </span>
               </td>
               <td>{st.year}</td>
-              <td className="btn-td">
+              <td className="btn-td change-td">
                 <button
-                  className="view-btn"
+                  className="change-btn"
                   onClick={() => props.onChangeInput(st.id)}
                 >
                   change
                 </button>
               </td>
-              <td className="btn-td">
-                <button className="view-btn">
-                  <Link to={`${match.url}/${st.id}`}>info</Link>
-                </button>
-              </td>
-              <td className="btn-td">
+              <td className="btn-td delete-td">
                 <button
                   className="delete-btn"
                   onClick={() => props.onRemoveStudent(st.id)}

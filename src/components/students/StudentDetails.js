@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import Card from '../UI/Card';
 
-const StudentDetails = props => {
+const StudentDetails = () => {
   const [studentInfo, setStudentInfo] = useState('');
   const params = useParams();
   const id = params.id;
@@ -18,7 +18,7 @@ const StudentDetails = props => {
         const student = { ...data };
         setStudentInfo(student);
       });
-  }, []);
+  }, [id]);
 
   return (
     <Card>
