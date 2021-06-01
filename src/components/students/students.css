@@ -8,19 +8,28 @@
 }
 .add-btn,
 .sort-btn,
+.view-btn,
 .delete-btn {
   padding: 6px 16px;
   text-transform: uppercase;
   border-radius: 6px;
   color: white;
-  font-weight: 600;
   border: none;
   transition: all 0.2s;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
   outline: none;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+}
+.view-btn a {
+  text-decoration: none;
+  color: white;
 }
 .add-btn,
-.sort-btn {
+.sort-btn,
+.view-btn {
   background: linear-gradient(to right bottom, #0abd34, #024e14);
 }
 .delete-btn {
@@ -31,6 +40,7 @@
 }
 .add-btn:hover,
 .sort-btn:hover,
+.view-btn:hover,
 .delete-btn:hover {
   transform: translateY(-2px);
   box-shadow: 4px 7px 10px rgba(0, 0, 0, 0.6);
@@ -40,6 +50,7 @@
 }
 .add-btn:active,
 .sort-btn:active,
+.view-btn:active,
 .delete-btn:active {
   transform: translateY(0px);
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
@@ -72,9 +83,22 @@ tr {
 }
 td {
   border-bottom: 2px solid #9f9f9f;
-  cursor: pointer;
 }
 .btn-td {
   text-align: end;
   border: none;
+}
+
+.react-datepicker-wrapper,
+.react-datepicker__input-container,
+.react-datepicker__input-container input {
+  display: flex;
+  justify-content: flex-end;
+  width: 84%;
+}
+#details-table {
+  text-align: center;
+}
+#details-table th {
+  text-align: center;
 }

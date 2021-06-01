@@ -7,13 +7,13 @@ const StudentForm = React.memo(props => {
   const [enteredLName, setEnteredLName] = useState('');
   const [enteredYear, setEnteredYear] = useState('');
   const [enteredPass, setEnteredPass] = useState('');
-  const [addedOrderNumber, setAddedOrderNumber] = useState(1);
 
   const [formValid, setFormValid] = useState(false);
 
   const submitHandler = e => {
     e.preventDefault();
 
+    // basic input validation
     if (
       enteredFName === '' ||
       enteredLName === '' ||
@@ -31,16 +31,28 @@ const StudentForm = React.memo(props => {
       lName: enteredLName,
       year: enteredYear,
       password: enteredPass,
-      order: addedOrderNumber,
     };
 
     props.onAddStudent(student);
 
+    // clearing input fields
     setEnteredFName('');
     setEnteredLName('');
     setEnteredYear('');
     setEnteredPass('');
-    setAddedOrderNumber(addedOrderNumber + 1);
+  };
+
+  const fNameChangeHandler = e => {
+    setEnteredFName(e.target.value);
+  };
+  const lNameChangeHandler = e => {
+    setEnteredLName(e.target.value);
+  };
+  const yearChangeHandler = e => {
+    setEnteredYear(e.target.value);
+  };
+  const passChangeHandler = e => {
+    setEnteredPass(e.target.value);
   };
 
   return (
@@ -54,9 +66,7 @@ const StudentForm = React.memo(props => {
               type="text"
               id="fName"
               value={enteredFName}
-              onChange={e => {
-                setEnteredFName(e.target.value);
-              }}
+              onChange={fNameChangeHandler}
             />
           </div>
           <div className="form-control">
@@ -65,20 +75,17 @@ const StudentForm = React.memo(props => {
               type="text"
               id="lName"
               value={enteredLName}
-              onChange={e => {
-                setEnteredLName(e.target.value);
-              }}
+              onChange={lNameChangeHandler}
             />
           </div>
           <div className="form-control">
-            <label htmlFor="year">Date of birth:</label>
+            <label htmlFor="year">date of birth:</label>
             <input
-              type="number"
+              type="date"
+              min="1980-01-01"
               id="year"
               value={enteredYear}
-              onChange={e => {
-                setEnteredYear(e.target.value);
-              }}
+              onChange={yearChangeHandler}
             />
           </div>
           <div className="form-control">
@@ -87,13 +94,11 @@ const StudentForm = React.memo(props => {
               type="number"
               id="pass"
               value={enteredPass}
-              onChange={e => {
-                setEnteredPass(e.target.value);
-              }}
+              onChange={passChangeHandler}
             />
           </div>
           <div>
-            <button type="submit" className=" add-btn">
+            <button type="submit" className="add-btn">
               Add student
             </button>
           </div>
