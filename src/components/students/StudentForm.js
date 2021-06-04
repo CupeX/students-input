@@ -10,8 +10,6 @@ const StudentForm = React.memo(props => {
 
   const [formValid, setFormValid] = useState(false);
 
-  console.log('student form', props);
-
   const submitHandler = e => {
     e.preventDefault();
 

@@ -23,7 +23,7 @@ const SubjectsList = props => {
                 </Link>
               </td>
               <td>
-                <span>{st.title} </span>
+                <span>{st.title.title} </span>
               </td>
               <td className="btn-td change-td">
                 <button

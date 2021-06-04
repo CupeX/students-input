@@ -2,12 +2,13 @@ import SubjectForm from './SubjectForm';
 
 const AddNewSubject = () => {
   const addSubjectHandler = subjectData => {
-    console.log(subjectData);
+    const subject = { title: subjectData.subject, professor: '' };
+
     fetch(
       'https://students-input-default-rtdb.europe-west1.firebasedatabase.app/subjects.json',
       {
         method: 'POST',
-        body: JSON.stringify(subjectData),
+        body: JSON.stringify(subject),
         headers: {
           'Content-Type': 'application/json',
         },

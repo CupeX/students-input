@@ -60,29 +60,77 @@ const Subjects = () => {
   // change first and last name
   const changeInputHandler = subjectId => {
     const newSubject = prompt('enter new subjects title');
-    const changedSubject = (userSubjects.find(
-      st => st.id === subjectId
-    ).subject = newSubject);
-    console.log(changedSubject);
+    userSubjects.find(st => st.id === subjectId).title.title = newSubject;
 
     // update UI
-    const changeUserInput = JSON.parse(JSON.stringify(userSubjects));
-    setUserSubjects(changeUserInput);
+    const subject = userSubjects.find(x => x.id === subjectId);
+    const updateSubjectsName = subject.title;
+    const changeUISubjName = JSON.parse(JSON.stringify(userSubjects));
+    setUserSubjects(changeUISubjName);
 
     // update subject on database
     fetch(
       `https://students-input-default-rtdb.europe-west1.firebasedatabase.app/subjects/${subjectId}.json`,
       {
         method: 'PUT',
-        body: JSON.stringify(changedSubject),
+        body: JSON.stringify(updateSubjectsName),
         headers: {
           'Content-Type': 'application/json',
         },
       }
     );
-    // console.log(userStudents);
-    // const findingSubjectsInStudents = userStudents.filter(x => x.subjects);
-    // console.log('subjectId', subjectId);
+    // const findingSubjectsInStudents = userStudents.map(x => x.subjects);
+
+    // for (let subjectValues of Object.values(findingSubjectsInStudents)) {
+    //   for (let subjectKeys of Object.keys(subjectValues)) {
+    //     if (!subjectKeys === subjectId) {
+    //       console.log('no');
+    //     } else {
+    //       console.log('yes, change subjects name');
+
+    //       //       const subjects = {
+    //       //   ...student.subjects,
+    //       //   [subjectId]: title,
+    //       // };
+    //       // const updatedSubjects = userStudents.map(x => x.subjects);
+    //       const updateAllSubjects = {
+    //         ...userStudents,
+    //       };
+    //       console.log('updateAllSubjects', updateAllSubjects);
+    //       // fetch(
+    //       //   `https://students-input-default-rtdb.europe-west1.firebasedatabase.app/student/.json`,
+    //       //   {
+    //       //     method: 'POST',
+    //       //     body: JSON.stringify(updateAllSubjects),
+    //       //     headers: {
+    //       //       'Content-Type': 'application/json',
+    //       //     },
+    //       //   }
+    // );
+    // }
+    // }
+
+    // if (!subjectValues.hasOwnProperty(subjectId)) {
+    //   console.log('no');
+    // } else {
+    //   console.log('yes, change subjects title');
+    //   for (let subjectTitle of Object.values(subjectValues)) {
+    //     let newSubjTitleInAllStudents = subjectTitle.title;
+    //     newSubjTitleInAllStudents = newSubject;
+    //     console.log(newSubjTitleInAllStudents);
+    //     //  fetch(
+    //     //    `https://students-input-default-rtdb.europe-west1.firebasedatabase.app/student/${studentId}.json`,
+    //     //    {
+    //     //      method: 'PUT',
+    //     //      body: JSON.stringify(updateSubjectsName),
+    //     //      headers: {
+    //     //        'Content-Type': 'application/json',
+    //     //      },
+    //     //    }
+    //     //  );
+    //   }
+    // }
+    // }
     // console.log('findingSubjectsInStudents', findingSubjectsInStudents);
   };
 

@@ -27,14 +27,16 @@ const ModalStudentsList = props => {
     // filter picked student
     const student = studentsData.find(x => x.id === studentId);
 
-    const subjects = {
-      ...student.subjects,
-      [subjectId]: subjectObj.title,
-    };
-
     if (!student.hasOwnProperty('subjects')) {
       student.subjects = {};
     }
+    const title = subjectObj.title;
+    console.log(student);
+    const subjects = {
+      ...student.subjects,
+      [subjectId]: title,
+    };
+    console.log('subjects', subjects);
 
     if (student.subjects.hasOwnProperty(subjectId)) {
       console.log('allready have this subject');
