@@ -1,10 +1,12 @@
 import { Route, Switch } from 'react-router-dom';
 
 import MainNavigation from './components/layout/MainNavigation';
-import AllStudents from './pages/AllStudents';
-import NewStudent from './pages/NewStudent';
-import HomePage from './pages/HomePage';
-import StudentDetails from './components/students/StudentDetails';
+import HomePagePage from './pages/HomePage';
+import StudentDetailsPage from './pages/studentsPage/StudentDetailsPage';
+import AllStudentsPage from './pages/studentsPage/AllStudentsPage';
+import AddStudentPage from './pages/studentsPage/AddStudentPage';
+import AllSubjectsPage from './pages/subjectsPage/AllSubjectsPage';
+import AddSubjectPage from './pages/subjectsPage/AddSubjectPage';
 import './App.css';
 
 function App() {
@@ -12,17 +14,23 @@ function App() {
     <div>
       <MainNavigation />
       <Switch>
-        <Route path="/homepage" exact>
-          <HomePage />
+        <Route path="/students-input" exact>
+          <HomePagePage />
         </Route>
-        <Route path="/allstudents" exact>
-          <AllStudents />
+        <Route path="/students-input/all-students" exact>
+          <AllStudentsPage />
         </Route>
-        <Route path="/allstudents/:id" exact>
-          <StudentDetails />
+        <Route path="/students-input/all-subjects" exact>
+          <AllSubjectsPage />
         </Route>
-        <Route path="/newstudent" exact>
-          <NewStudent />
+        <Route path="/students-input/all-students/:id" exact>
+          <StudentDetailsPage />
+        </Route>
+        <Route path="/students-input/add-new-student" exact>
+          <AddStudentPage />
+        </Route>
+        <Route path="/students-input/add-new-subject" exact>
+          <AddSubjectPage />
         </Route>
       </Switch>
     </div>

@@ -12,12 +12,6 @@ const AddNewStudent = () => {
         },
       }
     );
-
-    //   this code is not needed anymore in separate file
-    // setUserStudents(prevStudents => [
-    //   { id: nanoid(), ...student },
-    //   ...prevStudents,
-    // ]);
   };
 
   return <StudentForm onAddStudent={addStudentHandler} />;

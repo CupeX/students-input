@@ -1,35 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../UI/Card';
-import StudentDetails from './StudentDetails';
+import fetchStudents from './FetchStudents';
 
 import StudentsList from './StudentList';
 
 const Students = () => {
   const [userStudents, setUserStudents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isViewing, setIsViewing] = useState(false);
-  const [uniqeId, setUniqeId] = useState('');
+
+  const getStudents = async () => {
+    const students = await fetchStudents();
+    setIsLoading(false);
+    setUserStudents(students);
+  };
 
   // loading students from database
   useEffect(() => {
     setIsLoading(true);
-    fetch(
-      'https://students-input-default-rtdb.europe-west1.firebasedatabase.app/student.json'
-    )
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        const students = [];
-
-        for (const key in data) {
-          const student = { id: key, ...data[key] };
-
-          students.push(student);
-        }
-        setIsLoading(false);
-        setUserStudents(students);
-      });
+    fetchStudents();
+    getStudents();
   }, []);
 
   // removing student
@@ -97,18 +86,6 @@ const Students = () => {
     setUserStudents(sorted);
   };
 
-  // const viewStudentHandler = studentId => {
-  //   const viewStudent = userStudents.filter(st => st.id === studentId);
-  //   console.log(viewStudent);
-  //   console.log('clicked');
-  // };
-
-  const viewStudentHandler = studentId => {
-    const check = userStudents.filter(st => st.id === studentId);
-    setUniqeId(check);
-    setIsViewing(true);
-  };
-
   const content = (
     <div>
       <h2> All Students</h2>
@@ -134,22 +111,16 @@ const Students = () => {
       </Card>
     );
   }
-
   return (
     <div>
       <section>
         <Card>
-          {isViewing && <StudentDetails student={uniqeId} />}
-
-          {!isViewing && content}
-          {!isViewing && (
-            <StudentsList
-              students={userStudents}
-              onRemoveStudent={checkPassHandler}
-              onChangeInput={changeInputHandler}
-              onViewStudent={viewStudentHandler}
-            />
-          )}
+          {content}
+          <StudentsList
+            students={userStudents}
+            onRemoveStudent={checkPassHandler}
+            onChangeInput={changeInputHandler}
+          />
         </Card>
       </section>
     </div>
