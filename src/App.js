@@ -7,7 +7,10 @@ import AllStudentsPage from './pages/studentsPage/AllStudentsPage';
 import AddStudentPage from './pages/studentsPage/AddStudentPage';
 import AllSubjectsPage from './pages/subjectsPage/AllSubjectsPage';
 import AddSubjectPage from './pages/subjectsPage/AddSubjectPage';
+import AllProfessorsPage from './pages/professorsPage/AllProfessorsPage';
 import './App.css';
+import AddProfessorsPage from './pages/professorsPage/AddProfessorsPage';
+import AddPage from './pages/professorsPage/AddPage';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
         <Route path="/students-input/all-subjects" exact>
           <AllSubjectsPage />
         </Route>
+        <Route path="/students-input/all-professors" exact>
+          <AllProfessorsPage />
+        </Route>
         <Route path="/students-input/all-students/:id" exact>
           <StudentDetailsPage />
         </Route>
@@ -31,6 +37,12 @@ function App() {
         </Route>
         <Route path="/students-input/add-new-subject" exact>
           <AddSubjectPage />
+        </Route>
+        <Route path="/students-input/add-new-professor" exact>
+          <AddProfessorsPage />
+        </Route>
+        <Route path="/students-input/add" exact>
+          <AddPage />
         </Route>
       </Switch>
     </div>

@@ -31,12 +31,10 @@ const ModalStudentsList = props => {
       student.subjects = {};
     }
     const title = subjectObj.title;
-    console.log(student);
     const subjects = {
       ...student.subjects,
       [subjectId]: title,
     };
-    console.log('subjects', subjects);
 
     if (student.subjects.hasOwnProperty(subjectId)) {
       console.log('allready have this subject');

@@ -1,4 +1,4 @@
-const AddStudentToSubjectList = props => {
+const AddProffesorToSubjectList = props => {
   if (props.loading) {
     return <h2>Loading students list...</h2>;
   }
@@ -15,19 +15,19 @@ const AddStudentToSubjectList = props => {
           </tr>
         </thead>
         <tbody>
-          {props.students.map(st => (
+          {props.professors.map(st => (
             <tr key={st.id} id={st.id}>
               <td>
-                <span>{st.fName} </span>
+                <span>{st.title.fName} </span>
               </td>
               <td>
-                <span>{st.lName} </span>
+                <span>{st.title.lName} </span>
               </td>
 
               <td className="btn-td delete-td">
                 <button
                   className="add-btn"
-                  onClick={() => props.onAddStudentToSubject(st.id)}
+                  onClick={() => props.onAddProfessorToSubject(st.id)}
                 >
                   add
                 </button>
@@ -40,4 +40,4 @@ const AddStudentToSubjectList = props => {
   );
 };
 
-export default AddStudentToSubjectList;
+export default AddProffesorToSubjectList;

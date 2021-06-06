@@ -33,6 +33,7 @@ const StudentForm = React.memo(props => {
       password: enteredPass,
     };
 
+    console.log('student form submit', props);
     props.onAddStudent(student);
 
     // clearing input fields
@@ -82,7 +83,7 @@ const StudentForm = React.memo(props => {
             <label htmlFor="year">date of birth:</label>
             <input
               type="date"
-              min="1980-01-01"
+              min="1111-01-01"
               id="year"
               value={enteredYear}
               onChange={yearChangeHandler}

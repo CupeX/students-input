@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import fetchProfessors from '../professors/FetchProfessors';
 import fetchStudents from '../students/FetchStudents';
 import Card from '../UI/Card';
+import ModalProfList from './ModalProfList';
 import ModalStudentsList from './ModalStudentsList';
 
 import SubjectsList from './SubjectsList';
@@ -8,8 +10,10 @@ import SubjectsList from './SubjectsList';
 const Subjects = () => {
   const [userSubjects, setUserSubjects] = useState([]);
   const [userStudents, setUserStudents] = useState([]);
+  const [userProfessors, setUserProfessors] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [studentsModal, setStudentsModal] = useState(false);
+  const [profModal, setProfModal] = useState(false);
   const [subjectId, setSubjectId] = useState('');
 
   // getting students for change of subject title
@@ -21,6 +25,16 @@ const Subjects = () => {
   useEffect(() => {
     fetchStudents();
     getStudents();
+  }, []);
+
+  const getProfessors = async () => {
+    const professors = await fetchProfessors();
+    setUserProfessors(professors);
+  };
+  // loading professors
+  useEffect(() => {
+    fetchProfessors();
+    getProfessors();
   }, []);
 
   // loading subjects from database
@@ -79,59 +93,28 @@ const Subjects = () => {
         },
       }
     );
-    // const findingSubjectsInStudents = userStudents.map(x => x.subjects);
 
-    // for (let subjectValues of Object.values(findingSubjectsInStudents)) {
-    //   for (let subjectKeys of Object.keys(subjectValues)) {
-    //     if (!subjectKeys === subjectId) {
-    //       console.log('no');
-    //     } else {
-    //       console.log('yes, change subjects name');
+    const updatedSubjectInAllStudents = userStudents.map(x => {
+      if (x.subjects && Object.keys(x.subjects).includes(subjectId)) {
+        x.subjects[subjectId].title = newSubject;
+      }
+      return x;
+    });
+    setUserStudents(updatedSubjectInAllStudents);
 
-    //       //       const subjects = {
-    //       //   ...student.subjects,
-    //       //   [subjectId]: title,
-    //       // };
-    //       // const updatedSubjects = userStudents.map(x => x.subjects);
-    //       const updateAllSubjects = {
-    //         ...userStudents,
-    //       };
-    //       console.log('updateAllSubjects', updateAllSubjects);
-    //       // fetch(
-    //       //   `https://students-input-default-rtdb.europe-west1.firebasedatabase.app/student/.json`,
-    //       //   {
-    //       //     method: 'POST',
-    //       //     body: JSON.stringify(updateAllSubjects),
-    //       //     headers: {
-    //       //       'Content-Type': 'application/json',
-    //       //     },
-    //       //   }
-    // );
-    // }
-    // }
-
-    // if (!subjectValues.hasOwnProperty(subjectId)) {
-    //   console.log('no');
-    // } else {
-    //   console.log('yes, change subjects title');
-    //   for (let subjectTitle of Object.values(subjectValues)) {
-    //     let newSubjTitleInAllStudents = subjectTitle.title;
-    //     newSubjTitleInAllStudents = newSubject;
-    //     console.log(newSubjTitleInAllStudents);
-    //     //  fetch(
-    //     //    `https://students-input-default-rtdb.europe-west1.firebasedatabase.app/student/${studentId}.json`,
-    //     //    {
-    //     //      method: 'PUT',
-    //     //      body: JSON.stringify(updateSubjectsName),
-    //     //      headers: {
-    //     //        'Content-Type': 'application/json',
-    //     //      },
-    //     //    }
-    //     //  );
+    console.log('updatedSubjectInAllStudents', updatedSubjectInAllStudents);
+    const test = updatedSubjectInAllStudents.forEach(x => console.log(x));
+    console.log('test', test);
+    // fetch(
+    //   `https://students-input-default-rtdb.europe-west1.firebasedatabase.app/student/.json`,
+    //   {
+    //     method: 'PUT',
+    //     body: JSON.stringify(updatedSubjectInAllStudents),
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
     //   }
-    // }
-    // }
-    // console.log('findingSubjectsInStudents', findingSubjectsInStudents);
+    // );
   };
 
   // sorting
@@ -162,12 +145,21 @@ const Subjects = () => {
   );
 
   const addStudentToSubjectHandler = subjectId => {
-    setModalOpen(true);
+    setStudentsModal(true);
     setSubjectId(subjectId);
   };
 
-  const closeModal = () => {
-    setModalOpen(false);
+  const addProfToSubjectHandler = subjectId => {
+    setProfModal(true);
+    setSubjectId(subjectId);
+  };
+
+  const closeStudentsModal = () => {
+    setStudentsModal(false);
+  };
+
+  const closeProfModal = () => {
+    setProfModal(false);
   };
 
   if (isLoading) {
@@ -179,27 +171,32 @@ const Subjects = () => {
   }
 
   return (
-    <div>
-      <section>
-        <Card>
-          {content}
-          {modalOpen && (
-            <ModalStudentsList
-              onCloseModal={closeModal}
-              subjects={userSubjects}
-              subjectId={subjectId}
-            />
-          )}
+    <Card>
+      {content}
+      {studentsModal && (
+        <ModalStudentsList
+          onCloseModal={closeStudentsModal}
+          subjects={userSubjects}
+          subjectId={subjectId}
+        />
+      )}
 
-          <SubjectsList
-            subjects={userSubjects}
-            onRemoveSubject={removeSubjectHandler}
-            onChangeInput={changeInputHandler}
-            onAddStudentToSubject={addStudentToSubjectHandler}
-          />
-        </Card>
-      </section>
-    </div>
+      {profModal && (
+        <ModalProfList
+          onCloseModal={closeProfModal}
+          subjects={userSubjects}
+          subjectId={subjectId}
+        />
+      )}
+
+      <SubjectsList
+        subjects={userSubjects}
+        onRemoveSubject={removeSubjectHandler}
+        onChangeInput={changeInputHandler}
+        onAddStudentToSubject={addStudentToSubjectHandler}
+        onAddProfToSubject={addProfToSubjectHandler}
+      />
+    </Card>
   );
 };
 

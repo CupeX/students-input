@@ -21,16 +21,18 @@ const MainNavigation = () => {
             <Link to="/students-input/all-subjects">Subjects</Link>
           </li>
           <li>
+            <Link to="/students-input/all-professors">Professors</Link>
+          </li>
+          <li>
             <select
               className="sort-btn"
               onChange={e => testing(e.target.value)}
             >
               <option value="add">Add new?</option>
               <option value="add-new-student">Add new student</option>
-              <option value="add-new-profesor">Add new profesor</option>
+              <option value="add-new-professor">Add new profesor</option>
               <option value="add-new-subject">Add new subject</option>
             </select>
-            {/* <Link to="/students-input/newstudent">Add NEW student</Link> */}
           </li>
         </ul>
       </nav>

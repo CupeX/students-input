@@ -112,18 +112,15 @@ const Students = () => {
     );
   }
   return (
-    <div>
-      <section>
-        <Card>
-          {content}
-          <StudentsList
-            students={userStudents}
-            onRemoveStudent={checkPassHandler}
-            onChangeInput={changeInputHandler}
-          />
-        </Card>
-      </section>
-    </div>
+    <Card>
+      {content}
+
+      <StudentsList
+        students={userStudents}
+        onRemoveStudent={checkPassHandler}
+        onChangeInput={changeInputHandler}
+      />
+    </Card>
   );
 };
 

@@ -1,6 +1,6 @@
 import { Link, useRouteMatch } from 'react-router-dom';
 
-const SubjectsList = props => {
+const ProfessorsList = props => {
   const match = useRouteMatch();
 
   return (
@@ -9,14 +9,14 @@ const SubjectsList = props => {
         <thead>
           <tr>
             <th>more info</th>
-            <th>subject name</th>
-            <th>change sbject title</th>
-            <th>add student</th>
-            <th>add professor</th>
+            <th>title</th>
+            <th>first name</th>
+            <th>last name</th>
+            <th>subject</th>
           </tr>
         </thead>
         <tbody>
-          {props.subjects.map(st => (
+          {props.professors.map(st => (
             <tr key={st.id} id={st.id}>
               <td className="btn-td">
                 <Link to={`${match.url}/${st.id}`}>
@@ -24,9 +24,18 @@ const SubjectsList = props => {
                 </Link>
               </td>
               <td>
-                <span>{st.title.title} </span>
+                <span>prof: </span>
               </td>
-              <td className="btn-td change-td">
+              <td>
+                <span>{st.title.fName} </span>
+              </td>
+              <td>
+                <span>{st.title.lName} </span>
+              </td>
+              <td>
+                <span>{st.title.subject} </span>
+              </td>
+              {/* <td className="btn-td change-td">
                 <button
                   className="change-btn"
                   onClick={() => props.onChangeInput(st.id)}
@@ -39,17 +48,9 @@ const SubjectsList = props => {
                   className="change-btn"
                   onClick={() => props.onAddStudentToSubject(st.id)}
                 >
-                  add
+                  add student
                 </button>
-              </td>
-              <td className="btn-td change-td">
-                <button
-                  className="change-btn"
-                  onClick={() => props.onAddProfToSubject(st.id)}
-                >
-                  add
-                </button>
-              </td>
+              </td>*/}
               <td className="btn-td delete-td">
                 <button
                   className="delete-btn"
@@ -66,4 +67,4 @@ const SubjectsList = props => {
   );
 };
 
-export default SubjectsList;
+export default ProfessorsList;

@@ -30,27 +30,25 @@ const SubjectForm = React.memo(props => {
   };
 
   return (
-    <section>
-      <Card>
-        <h2>Students input form</h2>
-        <form onSubmit={submitHandler}>
-          <div className="form-control">
-            <label htmlFor="subject">subject name</label>
-            <input
-              type="text"
-              id="subject"
-              value={enteredSubject}
-              onChange={subjectChangeHandler}
-            />
-          </div>
-          <div>
-            <button type="submit" className="add-btn">
-              Add subject
-            </button>
-          </div>
-        </form>
-      </Card>
-    </section>
+    <Card>
+      <h2>Students input form</h2>
+      <form onSubmit={submitHandler}>
+        <div className="form-control">
+          <label htmlFor="subject">subject name</label>
+          <input
+            type="text"
+            id="subject"
+            value={enteredSubject}
+            onChange={subjectChangeHandler}
+          />
+        </div>
+        <div>
+          <button type="submit" className="add-btn">
+            Add subject
+          </button>
+        </div>
+      </form>
+    </Card>
   );
 });
 

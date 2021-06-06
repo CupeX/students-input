@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import Card from '../UI/Card';
@@ -73,7 +74,7 @@ const StudentDetails = () => {
             </td>
             <td>
               {subjects.map(x => (
-                <li key={x.id}>{x.subject}</li>
+                <li key={nanoid()}>{x.subject}</li>
               ))}
             </td>
             <td>
