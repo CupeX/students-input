@@ -1,11 +1,6 @@
 const AddStudentToSubjectList = props => {
-  if (props.loading) {
-    return <h2>Loading students list...</h2>;
-  }
-
   return (
     <section>
-      {!props.loading && <h2>all students list</h2>}
       <table>
         <thead>
           <tr>

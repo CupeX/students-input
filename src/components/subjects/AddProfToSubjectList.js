@@ -1,11 +1,7 @@
 const AddProffesorToSubjectList = props => {
-  if (props.loading) {
-    return <h2>Loading students list...</h2>;
-  }
-
   return (
     <section>
-      {!props.loading && <h2>all students list</h2>}
+      <h2>all professors list</h2>
       <table>
         <thead>
           <tr>
@@ -18,10 +14,10 @@ const AddProffesorToSubjectList = props => {
           {props.professors.map(st => (
             <tr key={st.id} id={st.id}>
               <td>
-                <span>{st.title.fName} </span>
+                <span>{st.fName} </span>
               </td>
               <td>
-                <span>{st.title.lName} </span>
+                <span>{st.lName} </span>
               </td>
 
               <td className="btn-td delete-td">

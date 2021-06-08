@@ -1,69 +1,73 @@
 import { useState, useEffect } from 'react';
-import fetchProfessors from '../professors/FetchProfessors';
+import db from '../firebase';
 import AddProfToSubjectList from './AddProfToSubjectList';
 
 import './Modal.css';
 
 const ModalProfList = props => {
-  const [professorsData, setProfessorsData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
   const subjectId = props.subjectId;
-  const subjectObj = props.subjects.find(x => x.id === subjectId);
+  const subjectObj = props.userSubjects.find(x => x.id === subjectId);
+  const { subject } = subjectObj;
 
-  fetchProfessors();
+  const [userProfessors, setUserProfessors] = useState([]);
+  let profRef = db.collection('professors');
+  let subjRef = db.collection('subjects');
+  // let studentRef = db.collection('students');
 
-  const getProfessors = async () => {
-    const professors = await fetchProfessors();
-    setIsLoading(false);
-    setProfessorsData(professors);
-  };
-  // loading professors
   useEffect(() => {
-    setIsLoading(true);
-    getProfessors();
-  }, []);
+    profRef.get().then(professors =>
+      professors.forEach(student => {
+        let data = student.data();
+        let { id } = student;
 
-  const addProfessorToSubjectHandler = profId => {
-    // filter picked student
-    const prof = professorsData.find(x => x.id === profId);
+        let payload = {
+          id,
+          ...data,
+        };
 
-    if (!prof.hasOwnProperty('subject')) {
-      prof.subject = '';
-    }
-    const title = subjectObj.title.title;
-    // const subjects = {
-    //   ...prof.subjects,
-    //   [subjectId]: title,
-    // };
-    // console.log('title', title);
-    // console.log('subjects', subjects);
-
-    if (prof.subject.hasOwnProperty(subjectId)) {
-      console.log('allready have this subject');
-    } else {
-      console.log('not attending this subject, i will add!');
-      fetch(
-        `https://students-input-default-rtdb.europe-west1.firebasedatabase.app/professors/${profId}/subject.json`,
-        {
-          method: 'PUT',
-          body: JSON.stringify(title),
-          headers: {
-            'Content-Type': 'application/json',
-          },
+        // check if there is allready professors in list
+        if (!userProfessors.find(x => (x.id = id))) {
+          setUserProfessors(professors => [...professors, payload]);
         }
-      ).then(() => {
-        getProfessors();
-      });
-    }
+      })
+    );
+  }, []);
+  console.log(userProfessors);
+
+  const addProfessorToSubjectHandler = professorId => {
+    profRef.doc(professorId).update({ subject: { [subjectId]: subject } });
+
+    const profObj = userProfessors.find(x => x.id === professorId);
+    const { fName, lName } = profObj;
+
+    subjRef.doc(subjectId).update({ professor: { fName, lName } });
+
+    // studentRef.get().then(x => {
+    //   x.forEach(doc => {
+    //     doc.ref.set(
+    //       { subjects: { [subjectId]: { fName, lName }, subject: subject } },
+    //       { merge: true }
+    //     );
+    //   });
+    // });
+
+    // [subjectId]: { professor: { fName, lName } },
+
+    // const updatedSubjectInAllStudents = userStudents.map(x => {
+    //   if (x.subjects && Object.keys(x.subjects).includes(subjectId)) {
+    //     x.subjects[subjectId].title = newSubject;
+    //   }
+    //   return x;
+    // });
+    // setUserStudents(updatedSubjectInAllStudents);
   };
 
   return (
     <div className="Modal">
       <button onClick={() => props.onCloseModal()}>close modal</button>
+
       <AddProfToSubjectList
-        loading={isLoading}
-        professors={professorsData}
+        professors={userProfessors}
         onAddProfessorToSubject={addProfessorToSubjectHandler}
       />
     </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 
 import Card from '../UI/Card';
 
@@ -7,6 +8,8 @@ const ProfessorForm = React.memo(props => {
   const [profName, setProfName] = useState('');
   const [profLName, setProfLName] = useState('');
   const [formValid, setFormValid] = useState(false);
+
+  const history = useHistory();
 
   const submitHandler = e => {
     console.log(e);
@@ -30,6 +33,8 @@ const ProfessorForm = React.memo(props => {
     // clearing input fields
     setProfName('');
     setProfLName('');
+
+    history.replace('/students-input/all-professors');
   };
 
   const fNameChangeHandler = e => {
@@ -46,6 +51,7 @@ const ProfessorForm = React.memo(props => {
         <div className="form-control">
           <label htmlFor="fName">first name</label>
           <input
+            placeholder={props.professor ? `${props.professor.fName}` : ''}
             type="text"
             id="fName"
             value={profName}
@@ -55,6 +61,7 @@ const ProfessorForm = React.memo(props => {
         <div className="form-control">
           <label htmlFor="lName">last name</label>
           <input
+            placeholder={props.professor ? `${props.professor.lName}` : ''}
             type="text"
             id="lName"
             value={profLName}

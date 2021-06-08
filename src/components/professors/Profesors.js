@@ -1,36 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Card from '../UI/Card';
-import fetchProfessors from './FetchProfessors';
 import ProfessorsList from './ProfessorsList';
 
 const Profesors = () => {
   const [userProfessors, setUserProfessors] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const getProfessors = async () => {
-    const professors = await fetchProfessors();
-    setIsLoading(false);
-    setUserProfessors(professors);
-  };
-
-  // loading professors from database
-  useEffect(() => {
-    setIsLoading(false);
-    fetchProfessors();
-    getProfessors();
-  }, []);
-
-  // removing prof
-  const removeProfessorHandler = profId => {
-    fetch(
-      `https://students-input-default-rtdb.europe-west1.firebasedatabase.app/professors/${profId}.json`,
-      {
-        method: 'DELETE',
-      }
-    );
-    const newList = userProfessors.filter(st => st.id !== profId);
-    setUserProfessors(newList);
-  };
 
   // sorting
   const sortHandler = e => {
@@ -43,7 +16,7 @@ const Profesors = () => {
 
   const content = (
     <div>
-      <h2> All Subjects</h2>
+      <h2> All Professors</h2>
 
       <select
         className="sort-btn"
@@ -58,21 +31,10 @@ const Profesors = () => {
     </div>
   );
 
-  if (isLoading) {
-    return (
-      <Card>
-        <h2>Loading...</h2>
-      </Card>
-    );
-  }
   return (
     <Card>
       {content}
-
-      <ProfessorsList
-        professors={userProfessors}
-        onRemoveSubject={removeProfessorHandler}
-      />
+      <ProfessorsList />
     </Card>
   );
 };

@@ -1,81 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Card from '../UI/Card';
-import fetchStudents from './FetchStudents';
-
-import StudentsList from './StudentList';
+import StudentsList from './StudentsList';
 
 const Students = () => {
   const [userStudents, setUserStudents] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const getStudents = async () => {
-    const students = await fetchStudents();
-    setIsLoading(false);
-    setUserStudents(students);
-  };
-
-  // loading students from database
-  useEffect(() => {
-    setIsLoading(true);
-    fetchStudents();
-    getStudents();
-  }, []);
-
-  // removing student
-  const removeStudentHandler = studentId => {
-    fetch(
-      `https://students-input-default-rtdb.europe-west1.firebasedatabase.app/student/${studentId}.json`,
-      {
-        method: 'DELETE',
-      }
-    );
-    const newList = userStudents.filter(st => st.id !== studentId);
-    setUserStudents(newList);
-  };
-
-  // check password to remove student
-  const checkPassHandler = studentId => {
-    const passInput = prompt('enter password');
-    const getPass = userStudents
-      .filter(st => st.id === studentId)
-      .map(st => st.password);
-
-    if (+passInput === +getPass) {
-      removeStudentHandler(studentId);
-    } else {
-      alert('wrong password!');
-    }
-  };
-
-  // change first and last name
-  const changeInputHandler = studentId => {
-    const newFName = prompt('enter new first name');
-    const newLName = prompt('enter new last name');
-    userStudents
-      .filter(st => st.id === studentId)
-      .map(st => {
-        st.fName = newFName;
-        st.lName = newLName;
-      });
-
-    // change UI list
-    const changeUserInput = JSON.parse(JSON.stringify(userStudents));
-    setUserStudents(changeUserInput);
-
-    // update for database
-    const changedStudent = userStudents.filter(st => st.id === studentId);
-
-    fetch(
-      `https://students-input-default-rtdb.europe-west1.firebasedatabase.app/student/${studentId}.json`,
-      {
-        method: 'PUT',
-        body: JSON.stringify(...changedStudent),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-  };
 
   // sorting
   const sortHandler = e => {
@@ -104,22 +32,10 @@ const Students = () => {
     </div>
   );
 
-  if (isLoading) {
-    return (
-      <Card>
-        <h2>Loading...</h2>
-      </Card>
-    );
-  }
   return (
     <Card>
       {content}
-
-      <StudentsList
-        students={userStudents}
-        onRemoveStudent={checkPassHandler}
-        onChangeInput={changeInputHandler}
-      />
+      <StudentsList />
     </Card>
   );
 };

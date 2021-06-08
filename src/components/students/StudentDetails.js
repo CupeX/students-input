@@ -1,47 +1,29 @@
-import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import Card from '../UI/Card';
-import fetchStudents from './FetchStudents';
+import db from '../firebase';
 
-const StudentDetails = () => {
-  const [studentsData, setStudentsData] = useState([]);
+const StudentDetails = props => {
   const [student, setStudent] = useState({});
   const [isLoading, setIsLoading] = useState(true);
-  const [subjects, setSubjects] = useState([]);
 
   const params = useParams();
   const studentId = params.id;
 
-  fetchStudents();
-
   useEffect(() => {
-    setIsLoading(true);
-    getStudents();
-  }, []);
+    let postRef = db.collection('students').doc(studentId);
 
-  const getStudents = async () => {
-    const students = await fetchStudents();
-    setStudentsData(students);
-    setIsLoading(false);
-  };
-
-  useEffect(() => {
-    if (studentsData.length) {
-      const filteredStudent = studentsData.find(x => x.id === studentId);
-      setStudent(filteredStudent);
-      console.log('filteredStudent', filteredStudent);
-      if (filteredStudent.hasOwnProperty('subjects')) {
-        const filteredSubject = Object.values(filteredStudent.subjects);
-        setSubjects(filteredSubject);
-      }
-    }
-  }, [studentsData, studentId]);
+    postRef.get().then(doc => {
+      let data = doc.data();
+      setStudent(data);
+      setIsLoading(false);
+    });
+  }, [studentId]);
 
   if (isLoading) {
     return (
       <Card>
-        <h2>Loading students list...</h2>
+        <h2>Loading student...</h2>
       </Card>
     );
   }
@@ -74,7 +56,7 @@ const StudentDetails = () => {
             </td>
             {/* <td>
               {subjects.map(x => (
-                <li key={nanoid()}>{x.subject}</li>
+                <li key={x.id}>{x.subject}</li>
               ))}
             </td>
             <td>
@@ -82,7 +64,6 @@ const StudentDetails = () => {
                 <li key={x.id}>{x.professor}</li>
               ))}
             </td> */}
-
             <td>{student.year}</td>
             <td>{student.password}</td>
             <td>{studentId}</td>

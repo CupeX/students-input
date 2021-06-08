@@ -1,68 +1,73 @@
 import { Link, useRouteMatch } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import db from '../firebase';
 
 const ProfessorsList = props => {
   const match = useRouteMatch();
 
+  const [userProfessors, setUserProfessors] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  let postRef = db.collection('professors');
+
+  useEffect(() => {
+    postRef.get().then(professors =>
+      professors.forEach(professor => {
+        let data = professor.data();
+        let { id } = professor;
+
+        let payload = {
+          id,
+          ...data,
+        };
+
+        // check if there is allready students in list
+        if (!userProfessors.find(x => (x.id = id))) {
+          setUserProfessors(professors => [...professors, payload]);
+          setIsLoading(false);
+        }
+      })
+    );
+  }, []);
+
+  const removeProfessorHandler = professorId => {
+    postRef
+      .doc(professorId)
+      .delete()
+      .then(() => {
+        console.log('professor successfully deleted!');
+      });
+  };
+
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
+
   return (
     <section>
-      <table>
-        <thead>
-          <tr>
-            <th>more info</th>
-            <th>title</th>
-            <th>first name</th>
-            <th>last name</th>
-            <th>subject</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.professors.map(st => (
-            <tr key={st.id} id={st.id}>
-              <td className="btn-td">
-                <Link to={`${match.url}/${st.id}`}>
-                  <button className="info-btn">&#8505;</button>
-                </Link>
-              </td>
-              <td>
-                <span>prof: </span>
-              </td>
-              <td>
-                <span>{st.title.fName} </span>
-              </td>
-              <td>
-                <span>{st.title.lName} </span>
-              </td>
-              <td>
-                <span>{st.title.subject} </span>
-              </td>
-              {/* <td className="btn-td change-td">
-                <button
-                  className="change-btn"
-                  onClick={() => props.onChangeInput(st.id)}
-                >
-                  change
-                </button>
-              </td>
-              <td className="btn-td change-td">
-                <button
-                  className="change-btn"
-                  onClick={() => props.onAddStudentToSubject(st.id)}
-                >
-                  add student
-                </button>
-              </td>*/}
-              <td className="btn-td delete-td">
-                <button
-                  className="delete-btn"
-                  onClick={() => props.onRemoveSubject(st.id)}
-                >
-                  delete subject
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {userProfessors.map(st => (
+        <div className="item-wrapper" key={st.id} id={st.id}>
+          <div className="info-wrapper">
+            <span>professor: </span>
+            <span>{st.fName} </span>
+            <span>{st.lName} </span>
+          </div>
+          <div className="btn-wrapper">
+            <Link to={`${match.url}/details/${st.id}`}>
+              <button className="info-btn">&#8505;</button>
+            </Link>
+            <Link to={`${match.url}/edit/${st.id}`}>
+              <button className="change-btn">edit</button>
+            </Link>
+            <button
+              className="delete-btn"
+              onClick={() => removeProfessorHandler(st.id)}
+            >
+              delete
+            </button>
+          </div>
+        </div>
+      ))}
     </section>
   );
 };

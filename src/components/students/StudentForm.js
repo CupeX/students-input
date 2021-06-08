@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 
 import Card from '../UI/Card';
 
@@ -7,6 +8,8 @@ const StudentForm = React.memo(props => {
   const [enteredLName, setEnteredLName] = useState('');
   const [enteredYear, setEnteredYear] = useState('');
   const [enteredPass, setEnteredPass] = useState('');
+
+  const history = useHistory();
 
   const [formValid, setFormValid] = useState(false);
 
@@ -31,9 +34,9 @@ const StudentForm = React.memo(props => {
       lName: enteredLName,
       year: enteredYear,
       password: enteredPass,
+      subjects: [],
     };
 
-    console.log('student form submit', props);
     props.onAddStudent(student);
 
     // clearing input fields
@@ -41,6 +44,7 @@ const StudentForm = React.memo(props => {
     setEnteredLName('');
     setEnteredYear('');
     setEnteredPass('');
+    history.replace('/students-input/all-students');
   };
 
   const fNameChangeHandler = e => {
@@ -64,6 +68,7 @@ const StudentForm = React.memo(props => {
           <div className="form-control">
             <label htmlFor="fName">First Name:</label>
             <input
+              placeholder={props.student ? `${props.student.fName}` : ''}
               type="text"
               id="fName"
               value={enteredFName}
@@ -73,6 +78,7 @@ const StudentForm = React.memo(props => {
           <div className="form-control">
             <label htmlFor="lName">Last Name:</label>
             <input
+              placeholder={props.student ? `${props.student.lName}` : ''}
               type="text"
               id="lName"
               value={enteredLName}
@@ -82,6 +88,7 @@ const StudentForm = React.memo(props => {
           <div className="form-control">
             <label htmlFor="year">date of birth:</label>
             <input
+              placeholder={props.student ? `${props.student.year}` : ''}
               type="date"
               min="1111-01-01"
               id="year"
@@ -92,6 +99,7 @@ const StudentForm = React.memo(props => {
           <div className="form-control">
             <label htmlFor="pass">Password:</label>
             <input
+              placeholder={props.student ? `${props.student.password}` : ''}
               type="number"
               id="pass"
               value={enteredPass}
@@ -100,7 +108,7 @@ const StudentForm = React.memo(props => {
           </div>
           <div>
             <button type="submit" className="add-btn">
-              Add student
+              {props.student ? 'save changes' : 'add student'}
             </button>
           </div>
         </form>
