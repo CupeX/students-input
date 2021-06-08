@@ -57,8 +57,8 @@ const StudentDetails = () => {
           <tr>
             <th>first name</th>
             <th>last name</th>
-            <th>subject/s</th>
-            <th>professor/s</th>
+            {/* <th>subject/s</th>
+            <th>professor/s</th> */}
             <th>birth</th>
             <th>password</th>
             <th>unique id</th>
@@ -72,7 +72,7 @@ const StudentDetails = () => {
             <td>
               <span>{student.lName} </span>
             </td>
-            <td>
+            {/* <td>
               {subjects.map(x => (
                 <li key={nanoid()}>{x.subject}</li>
               ))}
@@ -81,7 +81,7 @@ const StudentDetails = () => {
               {subjects.map(x => (
                 <li key={x.id}>{x.professor}</li>
               ))}
-            </td>
+            </td> */}
 
             <td>{student.year}</td>
             <td>{student.password}</td>
