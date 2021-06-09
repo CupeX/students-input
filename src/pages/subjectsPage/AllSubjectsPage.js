@@ -1,7 +1,7 @@
-import Subjects from '../../components/subjects/Subjects';
+import SubjectsList from '../../components/subjects/SubjectsList';
 
 const AllSubjectsPage = () => {
-  return <Subjects />;
+  return <SubjectsList />;
 };
 
 export default AllSubjectsPage;

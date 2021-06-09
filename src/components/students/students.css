@@ -83,11 +83,17 @@ table {
   border-collapse: collapse;
   text-align: start;
 }
+.student-details-dable:first-of-type {
+  margin-bottom: 50px;
+}
+.w50-td {
+  width: 50%;
+}
 th {
   text-align: start;
 }
 tr {
-  height: 50px;
+  height: 30px;
 }
 td {
   border-bottom: 1px solid #9f9f9f;

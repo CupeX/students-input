@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 import { Link, useRouteMatch } from 'react-router-dom';
 import db from '../firebase';
+import Card from '../UI/Card';
 import ModalProfList from './ModalProfList';
 import ModalStudentsList from './ModalStudentsList';
 
@@ -62,12 +63,36 @@ const SubjectsList = props => {
     setProfessorsModal(false);
   };
 
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
+  // sorting
+  const sortHandler = e => {
+    const sortProperty = e;
+    userSubjects.sort((a, b) => (a[sortProperty] > b[sortProperty] ? 1 : -1));
+
+    const sorted = JSON.parse(JSON.stringify(userSubjects));
+    setUserSubjects(sorted);
+  };
+
+  let content = (
+    <div>
+      <h2> All Subjects</h2>
+
+      <select
+        className="sort-btn"
+        onChange={e => {
+          sortHandler(e.target.value);
+        }}
+      >
+        <option value="order">sort by:</option>
+        <option value="fName">First Name</option>
+        <option value="lName">Last name</option>
+      </select>
+    </div>
+  );
 
   return (
-    <section>
+    <Card>
+      {content}
+      {isLoading && <h2>Loading...</h2>}
       {studentsModal && (
         <ModalStudentsList
           onCloseModal={closeStudentsModal}
@@ -118,7 +143,7 @@ const SubjectsList = props => {
           </div>
         </div>
       ))}
-    </section>
+    </Card>
   );
 };
 

@@ -47,12 +47,12 @@ const SubjectDetails = () => {
               <span>{subject.subject} </span>
             </td>
             <td>
-              {subject.professor !== '' ? (
+              {subject.professor === undefined ? (
+                'not assigned yet'
+              ) : (
                 <span>
                   {subject.professor.fName} {subject.professor.lName}
                 </span>
-              ) : (
-                'not assigned yet'
               )}
             </td>
             <td>{subjectId}</td>

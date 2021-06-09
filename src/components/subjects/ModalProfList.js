@@ -35,7 +35,7 @@ const ModalProfList = props => {
   console.log(userProfessors);
 
   const addProfessorToSubjectHandler = professorId => {
-    profRef.doc(professorId).update({ subject: { [subjectId]: subject } });
+    profRef.doc(professorId).update({ subject: { subjectId, title: subject } });
 
     const profObj = userProfessors.find(x => x.id === professorId);
     const { fName, lName } = profObj;

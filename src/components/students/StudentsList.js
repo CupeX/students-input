@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import db from '../firebase';
+import Card from '../UI/Card';
 
 import './students.css';
 
@@ -53,18 +54,44 @@ const StudentsList = () => {
     }
   };
 
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
+  // sorting
+  const sortHandler = e => {
+    const sortProperty = e;
+    userStudents.sort((a, b) => (a[sortProperty] > b[sortProperty] ? 1 : -1));
+
+    const sorted = JSON.parse(JSON.stringify(userStudents));
+    setUserStudents(sorted);
+  };
+
+  let content = (
+    <div>
+      <h2> All Students</h2>
+
+      <select
+        className="sort-btn"
+        onChange={e => {
+          sortHandler(e.target.value);
+        }}
+      >
+        <option value="order">sort by:</option>
+        <option value="fName">First Name</option>
+        <option value="lName">Last name</option>
+        <option value="year">Date of Birth</option>
+      </select>
+    </div>
+  );
 
   return (
-    <section>
+    <Card>
+      {content}
+      {isLoading && <h2>Loading...</h2>}
       {userStudents.map(st => (
         <div className="item-wrapper" key={st.id} id={st.id}>
           <div className="info-wrapper">
             <span>student: </span>
             <span>{st.fName}</span>
-            <span>{st.lName}</span>
+            <span>{st.lName},</span>
+            <span>born: {st.year}</span>
           </div>
           <div className="btn-wrapper">
             <Link to={`${match.url}/details/${st.id}`}>
@@ -82,7 +109,7 @@ const StudentsList = () => {
           </div>
         </div>
       ))}
-    </section>
+    </Card>
   );
 };
 

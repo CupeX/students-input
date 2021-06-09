@@ -1,7 +1,7 @@
-import Students from '../../components/students/Students';
+import StudentsList from '../../components/students/StudentsList';
 
 const AllStudentsPage = () => {
-  return <Students />;
+  return <StudentsList />;
 };
 
 export default AllStudentsPage;

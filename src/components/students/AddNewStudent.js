@@ -1,3 +1,4 @@
+import React from 'react';
 import db from '../firebase';
 import StudentForm from './StudentForm';
 

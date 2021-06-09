@@ -38,6 +38,7 @@ const ProfessorDetails = () => {
           <tr>
             <th>first name</th>
             <th>last name</th>
+            <th>subject</th>
             <th>unique id</th>
           </tr>
         </thead>
@@ -48,6 +49,13 @@ const ProfessorDetails = () => {
             </td>
             <td>
               <span>{professor.lName} </span>
+            </td>
+            <td>
+              {professor.subject === undefined ? (
+                'not assigned yet'
+              ) : (
+                <span>{professor.subject.title} </span>
+              )}
             </td>
             <td>{professorId}</td>
           </tr>
