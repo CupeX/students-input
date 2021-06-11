@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { unstable_renderSubtreeIntoContainer } from 'react-dom';
 import { Link, useRouteMatch } from 'react-router-dom';
 import db from '../firebase';
 import Card from '../UI/Card';
 import ModalProfList from './ModalProfList';
 import ModalStudentsList from './ModalStudentsList';
+import LoadSubjects from './LoadSubjects';
 
 const SubjectsList = props => {
   const match = useRouteMatch();
@@ -14,10 +14,9 @@ const SubjectsList = props => {
   const [studentsModal, setStudentsModal] = useState(false);
   const [professorsModal, setProfessorsModal] = useState(false);
 
-  let postRef = db.collection('subjects');
-
   useEffect(() => {
-    postRef.get().then(subjects =>
+    let subjectRef = db.collection('subjects');
+    subjectRef.get().then(subjects =>
       subjects.forEach(subject => {
         let data = subject.data();
         let { id } = subject;
@@ -35,9 +34,19 @@ const SubjectsList = props => {
       })
     );
   }, []);
+  // useEffect(() => {
+  //   // LoadSubjects();
+  //   // const payload = LoadSubjects();
+  //   // console.log(payload);
+  //   // if (!userSubjects.find(x => (x.id = id))) {
+  //   //   setUserSubjects(subjects => [...subjects, payload]);
+  //   //   setIsLoading(false);
+  //   // }
+  // }, [userSubjects]);
 
   const removeSubjectHandler = subjectId => {
-    postRef
+    let subjectRef = db.collection('subjects');
+    subjectRef
       .doc(subjectId)
       .delete()
       .then(() => {

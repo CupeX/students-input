@@ -4,8 +4,9 @@ import Card from '../UI/Card';
 import db from '../firebase';
 import { nanoid } from 'nanoid';
 
-const StudentDetails = props => {
+const StudentDetails = () => {
   const [student, setStudent] = useState({});
+  const [userSubjects, setUserSubjects] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const params = useParams();
@@ -20,6 +21,34 @@ const StudentDetails = props => {
       setIsLoading(false);
     });
   }, [studentId]);
+
+  // useEffect(() => {
+  //   let subjectRef = db.collection('subjects');
+  //   subjectRef.get().then(subjects =>
+  //     subjects.forEach(subject => {
+  //       let data = subject.data();
+  //       let { id } = subject;
+
+  //       let payload = {
+  //         id,
+  //         ...data,
+  //       };
+  //       console.log('subjects', subjects);
+  //       console.log('payload', payload);
+  //     })
+  //   );
+  // }, []);
+
+  // useEffect(() => {
+  //   let subjectRef = db.collection('subjects');
+  //   subjectRef.get().then(subjects =>
+  //     subjects.map(x => {
+  //       const test = x.data();
+  //       console.log(test);
+  //       return test;
+  //     })
+  //   );
+  // }, []);
 
   if (isLoading) {
     return (
@@ -64,7 +93,8 @@ const StudentDetails = props => {
             <th>professor</th>
           </tr>
         </thead>
-        <tbody>
+
+        {/* <tbody>
           {Object.values(student.subjects).map(x => (
             <tr key={nanoid + x.subject + x.professor.fName}>
               <td className="w50-td">{x.subject}</td>
@@ -73,7 +103,7 @@ const StudentDetails = props => {
               </td>
             </tr>
           ))}
-        </tbody>
+        </tbody> */}
       </table>
     </Card>
   );

@@ -36,18 +36,21 @@ const ModalStudentsList = props => {
     } else {
       postRef
         .doc(studentId)
-        .set(
-          { subjects: { [subjectId]: { subject, professor } } },
-          { merge: true }
-        );
+        .set({ subjects: { [subjectId]: '' } }, { merge: true });
     }
+
+    const removeStudent = userStudents.filter(x => x.id !== studentId);
+    setUserStudents(removeStudent);
   };
 
   return (
     <div className="Modal">
-      <button onClick={() => props.onCloseModal()}>close modal</button>
+      <button className="add-btn" onClick={() => props.onCloseModal()}>
+        close list
+      </button>
 
       <AddStudentToSubjectList
+        subjectId={subjectId}
         students={userStudents}
         onAddStudentToSubject={addStudentToSubjectHandler}
       />

@@ -1,4 +1,8 @@
 const AddStudentToSubjectList = props => {
+  const filteredList = props.students.filter(
+    x => !Object.keys(x.subjects).includes(props.subjectId)
+  );
+
   return (
     <section>
       <table>
@@ -10,7 +14,7 @@ const AddStudentToSubjectList = props => {
           </tr>
         </thead>
         <tbody>
-          {props.students.map(st => (
+          {filteredList.map(st => (
             <tr key={st.id} id={st.id}>
               <td>
                 <span>{st.fName} </span>

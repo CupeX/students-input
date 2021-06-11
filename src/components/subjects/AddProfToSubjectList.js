@@ -7,6 +7,7 @@ const AddProffesorToSubjectList = props => {
           <tr>
             <th>first name</th>
             <th>last name</th>
+            <th>teaching</th>
             <th style={{ textAlign: 'end' }}>add to subject</th>
           </tr>
         </thead>
@@ -19,6 +20,7 @@ const AddProffesorToSubjectList = props => {
               <td>
                 <span>{st.lName} </span>
               </td>
+              <td>{st.subject === props.subjectId ? 'yes' : 'x'}</td>
 
               <td className="btn-td delete-td">
                 <button

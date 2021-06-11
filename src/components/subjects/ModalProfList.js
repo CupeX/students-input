@@ -32,15 +32,14 @@ const ModalProfList = props => {
       })
     );
   }, []);
-  console.log(userProfessors);
 
   const addProfessorToSubjectHandler = professorId => {
-    profRef.doc(professorId).update({ subject: { subjectId, title: subject } });
+    // profRef.doc(professorId).update({ subject: { subjectId, title: subject } });
+    profRef.doc(professorId).update({ subject: subjectId });
+    subjRef.doc(subjectId).update({ professor: professorId });
 
-    const profObj = userProfessors.find(x => x.id === professorId);
-    const { fName, lName } = profObj;
-
-    subjRef.doc(subjectId).update({ professor: { fName, lName } });
+    // const profObj = userProfessors.find(x => x.id === professorId);
+    // const { fName, lName } = profObj;
 
     // studentRef.get().then(x => {
     //   x.forEach(doc => {
@@ -64,9 +63,12 @@ const ModalProfList = props => {
 
   return (
     <div className="Modal">
-      <button onClick={() => props.onCloseModal()}>close modal</button>
+      <button className="add-btn" onClick={() => props.onCloseModal()}>
+        close list
+      </button>
 
       <AddProfToSubjectList
+        subjectId={subjectId}
         professors={userProfessors}
         onAddProfessorToSubject={addProfessorToSubjectHandler}
       />

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import BaseInput from '../comon/BaseInput';
 
 import Card from '../UI/Card';
 
@@ -8,6 +9,8 @@ const StudentForm = React.memo(props => {
   const [enteredLName, setEnteredLName] = useState('');
   const [enteredYear, setEnteredYear] = useState('');
   const [enteredPass, setEnteredPass] = useState('');
+
+  const [student, setStudent] = useState({});
 
   const history = useHistory();
 
@@ -36,7 +39,7 @@ const StudentForm = React.memo(props => {
       password: enteredPass,
       subjects: [],
     };
-
+    setStudent(student);
     props.onAddStudent(student);
 
     // clearing input fields
@@ -65,6 +68,8 @@ const StudentForm = React.memo(props => {
       <Card>
         <h2>Students input form</h2>
         <form onSubmit={submitHandler}>
+          <BaseInput type="text" id="fName" />
+
           <div className="form-control">
             <label htmlFor="fName">First Name:</label>
             <input

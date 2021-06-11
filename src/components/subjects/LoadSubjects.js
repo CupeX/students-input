@@ -1,6 +1,9 @@
+import React, { useState } from 'react';
 import db from '../firebase';
 
-const LoadStudents = () => {
+const LoadSubjects = () => {
+  const [payload, setPayload] = useState([]);
+
   let subjectRef = db.collection('subjects');
   subjectRef.get().then(subjects =>
     subjects.forEach(subject => {
@@ -11,9 +14,10 @@ const LoadStudents = () => {
         id,
         ...data,
       };
-      return { payload, id };
+      setPayload(payload);
     })
   );
+  console.log('payload from load', payload);
 };
 
-export default LoadStudents;
+export default LoadSubjects;

@@ -50,9 +50,7 @@ const SubjectDetails = () => {
               {subject.professor === undefined ? (
                 'not assigned yet'
               ) : (
-                <span>
-                  {subject.professor.fName} {subject.professor.lName}
-                </span>
+                <span>{subject.professor}</span>
               )}
             </td>
             <td>{subjectId}</td>

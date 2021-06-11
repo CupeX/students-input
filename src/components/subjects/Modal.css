@@ -2,16 +2,16 @@
   position: fixed;
   z-index: 200;
   border: 1px solid #eee;
-  box-shadow: 0 2px 2px #ccc;
+  box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.6);
   background-color: white;
   padding: 10px;
   text-align: center;
   box-sizing: border-box;
-  top: 22vh;
+  top: 15vh;
   left: 30%;
-  width: 40vw;
+  width: 500px;
   transition: all 0.3s ease-out;
-  height: 50vh;
+  height: 57vh;
   overflow-y: auto;
 }
 
