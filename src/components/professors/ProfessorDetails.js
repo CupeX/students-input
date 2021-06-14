@@ -5,10 +5,26 @@ import db from '../firebase';
 
 const ProfessorDetails = () => {
   const [professor, setProfessor] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [userSubjects, setUserSubjects] = useState([]);
+  const [isLoadedProfessors, setIsLoadedProfessors] = useState(false);
+  const [isLoadedSubjects, setIsLoadedSubjects] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [subjectTitle, setSubjectTitle] = useState('not assigned yet');
 
   const params = useParams();
   const professorId = params.id;
+
+  useEffect(() => {
+    if (isLoadedSubjects && isLoadedProfessors) {
+      setIsLoaded(true);
+      if (professor.subject !== '') {
+        const subject = userSubjects.find(
+          x => x.id === professor.subject
+        ).subject;
+        setSubjectTitle(subject);
+      }
+    }
+  }, [isLoadedSubjects, isLoadedProfessors, isLoaded]);
 
   useEffect(() => {
     db.collection('professors')
@@ -17,11 +33,34 @@ const ProfessorDetails = () => {
       .then(doc => {
         let data = doc.data();
         setProfessor(data);
-        setIsLoading(false);
+        setIsLoadedProfessors(true);
       });
   }, [professorId]);
 
-  if (isLoading) {
+  useEffect(() => {
+    let subjectRef = db.collection('subjects');
+    subjectRef
+      .get()
+      .then(subjects => {
+        const subjArray = [];
+        subjects.forEach(subject => {
+          let data = subject.data();
+          let { id } = subject;
+
+          let payload = {
+            id,
+            ...data,
+          };
+          subjArray.push(payload);
+        });
+        setUserSubjects(subjArray);
+      })
+      .finally(() => {
+        setIsLoadedSubjects(true);
+      });
+  }, []);
+
+  if (!isLoaded) {
     return (
       <Card>
         <h2>Loading professor..</h2>
@@ -50,13 +89,7 @@ const ProfessorDetails = () => {
             <td>
               <span>{professor.lName} </span>
             </td>
-            <td>
-              {professor.subject === undefined ? (
-                'not assigned yet'
-              ) : (
-                <span>{professor.subject.title} </span>
-              )}
-            </td>
+            <td>{subjectTitle}</td>
             <td>{professorId}</td>
           </tr>
         </tbody>

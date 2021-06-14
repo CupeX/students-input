@@ -26,6 +26,7 @@ const ProfessorForm = React.memo(props => {
     const professorData = {
       fName: profName,
       lName: profLName,
+      subject: '',
     };
 
     props.onAddProfessor(professorData);

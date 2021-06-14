@@ -9,12 +9,10 @@ const StudentForm = React.memo(props => {
   const [enteredLName, setEnteredLName] = useState('');
   const [enteredYear, setEnteredYear] = useState('');
   const [enteredPass, setEnteredPass] = useState('');
-
+  const [formValid, setFormValid] = useState(false);
   const [student, setStudent] = useState({});
 
   const history = useHistory();
-
-  const [formValid, setFormValid] = useState(false);
 
   const submitHandler = e => {
     e.preventDefault();
@@ -68,49 +66,43 @@ const StudentForm = React.memo(props => {
       <Card>
         <h2>Students input form</h2>
         <form onSubmit={submitHandler}>
-          <BaseInput type="text" id="fName" />
+          <BaseInput
+            type="text"
+            id="fName"
+            onChange={fNameChangeHandler}
+            placeholder={props.student ? `${props.student.fName}` : ''}
+            value={enteredFName}
+            label={'First name:'}
+          />
 
-          <div className="form-control">
-            <label htmlFor="fName">First Name:</label>
-            <input
-              placeholder={props.student ? `${props.student.fName}` : ''}
-              type="text"
-              id="fName"
-              value={enteredFName}
-              onChange={fNameChangeHandler}
-            />
-          </div>
-          <div className="form-control">
-            <label htmlFor="lName">Last Name:</label>
-            <input
-              placeholder={props.student ? `${props.student.lName}` : ''}
-              type="text"
-              id="lName"
-              value={enteredLName}
-              onChange={lNameChangeHandler}
-            />
-          </div>
-          <div className="form-control">
-            <label htmlFor="year">date of birth:</label>
-            <input
-              placeholder={props.student ? `${props.student.year}` : ''}
-              type="date"
-              min="1111-01-01"
-              id="year"
-              value={enteredYear}
-              onChange={yearChangeHandler}
-            />
-          </div>
-          <div className="form-control">
-            <label htmlFor="pass">Password:</label>
-            <input
-              placeholder={props.student ? `${props.student.password}` : ''}
-              type="number"
-              id="pass"
-              value={enteredPass}
-              onChange={passChangeHandler}
-            />
-          </div>
+          <BaseInput
+            type="text"
+            id="lName"
+            onChange={lNameChangeHandler}
+            placeholder={props.student ? `${props.student.lName}` : ''}
+            value={enteredLName}
+            label={'Last name:'}
+          />
+
+          <BaseInput
+            type="date"
+            min="1111-01-01"
+            id="year"
+            onChange={yearChangeHandler}
+            placeholder={props.student ? `${props.student.year}` : ''}
+            value={enteredYear}
+            label={'Date of Birth:'}
+          />
+
+          <BaseInput
+            placeholder={props.student ? `${props.student.password}` : ''}
+            type="number"
+            id="pass"
+            value={enteredPass}
+            onChange={passChangeHandler}
+            label={'Password:'}
+          />
+
           <div>
             <button type="submit" className="add-btn">
               {props.student ? 'save changes' : 'add student'}

@@ -1,21 +1,15 @@
-import { useState } from 'react';
+import React from 'react';
 
 const BaseInput = props => {
-  const [userInput, setUserInput] = useState('');
-
-  const inputHandler = e => {
-    setUserInput(e.target.value);
-    console.log(e.target.value);
-  };
   return (
     <div className="form-control">
-      <label htmlFor="fName">test</label>
+      <label htmlFor={props.id}>{props.label}</label>
       <input
-        // placeholder={}
+        placeholder={props.placeholder}
         type={props.type}
         id={props.fName}
-        // value={enteredFName}
-        onChange={inputHandler}
+        value={props.value}
+        onChange={props.onChange}
       />
     </div>
   );
