@@ -20,7 +20,7 @@ const StudentDetailsTest = props => {
             <th>last name</th>
             <th>date of birth</th>
             <th>password</th>
-            <th>unique id</th>
+            {/* <th>unique id</th> */}
           </tr>
         </thead>
         <tbody>
@@ -29,12 +29,12 @@ const StudentDetailsTest = props => {
             <td>{student.lName}</td>
             <td>{student.year}</td>
             <td>{student.password}</td>
-            <td>{studentId}</td>
+            {/* <td>{studentId}</td> */}
           </tr>
         </tbody>
       </Table>
       <h4>Subjects that {student.fName} attend:</h4>
-      <Table striped className="student-details-dable">
+      <Table striped>
         <thead>
           <tr>
             <th>subject</th>

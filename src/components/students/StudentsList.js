@@ -4,7 +4,7 @@ import db from '../firebase';
 import Card from '../UI/Card';
 
 // import './students.css';
-import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
+import { Button, ListGroup, ListGroupItem, Table } from 'reactstrap';
 
 const StudentsList = () => {
   const match = useRouteMatch();
@@ -88,22 +88,41 @@ const StudentsList = () => {
       {isLoading && <h2>Loading...</h2>}
       <ListGroup className="mt-5">
         {userStudents.map(st => (
-          <ListGroupItem className="my-3" key={st.id} id={st.id}>
-            <div className="text-start">
-              <span>student: </span>
-              <span>{st.fName} </span>
-              <span>{st.lName}, </span>
-              <span>born: {st.year}</span>
-            </div>
+          <ListGroupItem
+            className="my-3 d-flex justify-content-between align-items-center "
+            key={st.id}
+            id={st.id}
+          >
+            <Table className="text-start w-50 ">
+              <tr>
+                <td>
+                  student:
+                  <strong>
+                    {st.fName} {st.lName}
+                  </strong>
+                </td>
+              </tr>
+              <tr>
+                <td>born: {st.year}</td>
+              </tr>
+            </Table>
 
             <div className="text-end">
               <Link to={`${match.url}/details/${st.id}`}>
-                <Button color="info">info</Button>
+                <Button className="btn mx-1" color="info">
+                  info
+                </Button>
               </Link>
               <Link to={`${match.url}/edit/${st.id}`}>
-                <Button color="success">edit</Button>
+                <Button className="btn mx-1" color="success">
+                  edit
+                </Button>
               </Link>
-              <Button color="danger" onClick={() => checkPassHandler(st.id)}>
+              <Button
+                className="btn mx-1"
+                color="danger"
+                onClick={() => checkPassHandler(st.id)}
+              >
                 delete
               </Button>
             </div>

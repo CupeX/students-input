@@ -1,3 +1,4 @@
+import { Button } from 'reactstrap';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import BaseInput from '../comon/BaseInput';
@@ -66,9 +67,9 @@ const ProfessorForm = React.memo(props => {
         />
 
         <div>
-          <button type="submit" className="add-btn">
-            Add professor
-          </button>
+          <Button type="submit" className="btn btn-success mt-4">
+            {props.profeesor ? 'save changes' : 'add profeesor'}
+          </Button>
         </div>
       </form>
     </Card>

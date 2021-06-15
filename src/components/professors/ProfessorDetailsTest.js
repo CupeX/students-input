@@ -1,4 +1,5 @@
 import { useParams } from 'react-router';
+import { Table } from 'reactstrap';
 import Card from '../UI/Card';
 
 const ProfessorDetailsTest = props => {
@@ -11,7 +12,7 @@ const ProfessorDetailsTest = props => {
     <Card>
       <h2>{professor.fName} info:</h2>
 
-      <table id="details-table">
+      <Table>
         <thead>
           <tr>
             <th>first name</th>
@@ -41,7 +42,7 @@ const ProfessorDetailsTest = props => {
             <td>{professorId}</td>
           </tr>
         </tbody>
-      </table>
+      </Table>
     </Card>
   );
 };

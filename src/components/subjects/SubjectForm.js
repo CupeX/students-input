@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import { Button } from 'reactstrap';
 import BaseInput from '../comon/BaseInput';
 
 import Card from '../UI/Card';
@@ -49,9 +50,9 @@ const SubjectForm = React.memo(props => {
         />
 
         <div>
-          <button type="submit" className="add-btn">
+          <Button type="submit" className="btn btn-success mt-4">
             {props.subject ? 'save changes' : 'add subject'}
-          </button>
+          </Button>
         </div>
       </form>
     </Card>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
 import db from '../firebase';
 import Card from '../UI/Card';
 import ModalProfList from './ModalProfList';
@@ -108,40 +109,55 @@ const SubjectsList = props => {
         />
       )}
 
-      {userSubjects.map(st => (
-        <div className="item-wrapper" key={st.id} id={st.id}>
-          <div className="info-wrapper">
-            <span>subject: {st.subject}</span>
-          </div>
-          <div className="btn-wrapper">
-            <Link to={`${match.url}/details/${st.id}`}>
-              <button className="info-btn">&#8505;</button>
-            </Link>
-            <Link to={`${match.url}/edit/${st.id}`}>
-              <button className="change-btn">edit</button>
-            </Link>
-            <button
-              className="change-btn"
-              onClick={() => onAddStudentToSubject(st.id)}
-            >
-              add student
-            </button>
-            <button
-              className="change-btn"
-              onClick={() => onAddProfToSubject(st.id)}
-            >
-              add professor
-            </button>
+      <ListGroup className="mt-5">
+        {userSubjects.map(st => (
+          <ListGroupItem
+            className="my-3 py-4 d-flex justify-content-between align-items-center"
+            key={st.id}
+            id={st.id}
+          >
+            <div className="text-start">
+              <span>
+                subject: <strong> {st.subject}</strong>
+              </span>
+            </div>
+            <div className="text-end">
+              <Link to={`${match.url}/details/${st.id}`}>
+                <Button className="btn mx-1" color="info">
+                  info
+                </Button>
+              </Link>
+              <Link to={`${match.url}/edit/${st.id}`}>
+                <Button className="btn mx-1" color="secondary">
+                  edit
+                </Button>
+              </Link>
+              <Button
+                className="btn mx-1"
+                color="success"
+                onClick={() => onAddStudentToSubject(st.id)}
+              >
+                add student
+              </Button>
+              <Button
+                className="btn mx-1"
+                color="success"
+                onClick={() => onAddProfToSubject(st.id)}
+              >
+                add professor
+              </Button>
 
-            <button
-              className="delete-btn"
-              onClick={() => removeSubjectHandler(st.id)}
-            >
-              delete
-            </button>
-          </div>
-        </div>
-      ))}
+              <Button
+                className="btn mx-1"
+                color="danger"
+                onClick={() => removeSubjectHandler(st.id)}
+              >
+                delete
+              </Button>
+            </div>
+          </ListGroupItem>
+        ))}
+      </ListGroup>
     </Card>
   );
 };

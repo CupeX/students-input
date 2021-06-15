@@ -4,7 +4,7 @@ import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 const BaseInput = props => {
   return (
     <InputGroup className="py-1">
-      <InputGroupAddon addonType="prepend">
+      <InputGroupAddon className="w-25" addonType="prepend">
         <InputGroupText>{props.label}</InputGroupText>
       </InputGroupAddon>
       <Input

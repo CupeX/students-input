@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
-import { InputGroup } from 'reactstrap';
 import BaseInput from '../comon/BaseInput';
+import { Button } from 'reactstrap';
 
 import Card from '../UI/Card';
 
@@ -93,7 +93,7 @@ const StudentForm = React.memo(props => {
             onChange={yearChangeHandler}
             placeholder={props.student ? `${props.student.year}` : ''}
             value={enteredYear}
-            label={'Birth:'}
+            label={'Date of Birth:'}
           />
 
           <BaseInput
@@ -106,9 +106,9 @@ const StudentForm = React.memo(props => {
           />
 
           <div>
-            <button type="submit" className="add-btn">
+            <Button type="submit" className="btn btn-success mt-4">
               {props.student ? 'save changes' : 'add student'}
-            </button>
+            </Button>
           </div>
         </form>
       </Card>

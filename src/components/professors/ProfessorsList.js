@@ -1,6 +1,7 @@
 import { Link, useRouteMatch } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import db from '../firebase';
+import { ListGroup, ListGroupItem, Button } from 'reactstrap';
 
 const ProfessorsList = props => {
   const match = useRouteMatch();
@@ -44,31 +45,43 @@ const ProfessorsList = props => {
   }
 
   return (
-    <section>
+    <ListGroup className="mt-5">
       {userProfessors.map(st => (
-        <div className="item-wrapper" key={st.id} id={st.id}>
-          <div className="info-wrapper">
-            <span>professor: </span>
-            <span>{st.fName} </span>
-            <span>{st.lName} </span>
+        <ListGroupItem
+          className="my-3 py-4 d-flex justify-content-between align-items-center "
+          key={st.id}
+          id={st.id}
+        >
+          <div>
+            <span>
+              professor:{' '}
+              <strong>
+                {st.fName} {st.lName}
+              </strong>
+            </span>
           </div>
           <div className="btn-wrapper">
             <Link to={`${match.url}/details/${st.id}`}>
-              <button className="info-btn">&#8505;</button>
+              <Button className="btn mx-1" color="info">
+                info
+              </Button>
             </Link>
             <Link to={`${match.url}/edit/${st.id}`}>
-              <button className="change-btn">edit</button>
+              <Button className="btn mx-1" color="success">
+                edit
+              </Button>
             </Link>
-            <button
-              className="delete-btn"
+            <Button
+              className="btn mx-1"
+              color="danger"
               onClick={() => removeProfessorHandler(st.id)}
             >
               delete
-            </button>
+            </Button>
           </div>
-        </div>
+        </ListGroupItem>
       ))}
-    </section>
+    </ListGroup>
   );
 };
 
