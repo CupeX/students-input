@@ -3,7 +3,8 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import db from '../firebase';
 import Card from '../UI/Card';
 
-import './students.css';
+// import './students.css';
+import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
 
 const StudentsList = () => {
   const match = useRouteMatch();
@@ -85,30 +86,30 @@ const StudentsList = () => {
     <Card>
       {content}
       {isLoading && <h2>Loading...</h2>}
-      {userStudents.map(st => (
-        <div className="item-wrapper" key={st.id} id={st.id}>
-          <div className="info-wrapper">
-            <span>student: </span>
-            <span>{st.fName}</span>
-            <span>{st.lName},</span>
-            <span>born: {st.year}</span>
-          </div>
-          <div className="btn-wrapper">
-            <Link to={`${match.url}/details/${st.id}`}>
-              <button className="info-btn">&#8505;</button>
-            </Link>
-            <Link to={`${match.url}/edit/${st.id}`}>
-              <button className="change-btn">edit</button>
-            </Link>
-            <button
-              className="delete-btn"
-              onClick={() => checkPassHandler(st.id)}
-            >
-              delete
-            </button>
-          </div>
-        </div>
-      ))}
+      <ListGroup className="mt-5">
+        {userStudents.map(st => (
+          <ListGroupItem className="my-3" key={st.id} id={st.id}>
+            <div className="text-start">
+              <span>student: </span>
+              <span>{st.fName} </span>
+              <span>{st.lName}, </span>
+              <span>born: {st.year}</span>
+            </div>
+
+            <div className="text-end">
+              <Link to={`${match.url}/details/${st.id}`}>
+                <Button color="info">info</Button>
+              </Link>
+              <Link to={`${match.url}/edit/${st.id}`}>
+                <Button color="success">edit</Button>
+              </Link>
+              <Button color="danger" onClick={() => checkPassHandler(st.id)}>
+                delete
+              </Button>
+            </div>
+          </ListGroupItem>
+        ))}
+      </ListGroup>
     </Card>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import BaseInput from '../comon/BaseInput';
 
 import Card from '../UI/Card';
 
@@ -38,16 +39,15 @@ const SubjectForm = React.memo(props => {
     <Card>
       <h2>Subject input form</h2>
       <form onSubmit={submitHandler}>
-        <div className="form-control">
-          <label htmlFor="subject">subject name</label>
-          <input
-            placeholder={props.subject ? `${props.subject.subject}` : ''}
-            type="text"
-            id="subject"
-            value={enteredSubject}
-            onChange={subjectChangeHandler}
-          />
-        </div>
+        <BaseInput
+          placeholder={props.subject ? `${props.subject.subject}` : ''}
+          type="text"
+          id="subject"
+          value={enteredSubject}
+          onChange={subjectChangeHandler}
+          label={'Subject title:'}
+        />
+
         <div>
           <button type="submit" className="add-btn">
             {props.subject ? 'save changes' : 'add subject'}

@@ -1,17 +1,20 @@
 import React from 'react';
+import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 
 const BaseInput = props => {
   return (
-    <div className="form-control">
-      <label htmlFor={props.id}>{props.label}</label>
-      <input
+    <InputGroup className="py-1">
+      <InputGroupAddon addonType="prepend">
+        <InputGroupText>{props.label}</InputGroupText>
+      </InputGroupAddon>
+      <Input
         placeholder={props.placeholder}
         type={props.type}
         id={props.fName}
         value={props.value}
         onChange={props.onChange}
       />
-    </div>
+    </InputGroup>
   );
 };
 

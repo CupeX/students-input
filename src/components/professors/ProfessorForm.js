@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import BaseInput from '../comon/BaseInput';
 
 import Card from '../UI/Card';
 
 const ProfessorForm = React.memo(props => {
-  console.log('prof form props', props);
   const [profName, setProfName] = useState('');
   const [profLName, setProfLName] = useState('');
   const [formValid, setFormValid] = useState(false);
@@ -12,7 +12,6 @@ const ProfessorForm = React.memo(props => {
   const history = useHistory();
 
   const submitHandler = e => {
-    console.log(e);
     e.preventDefault();
 
     // basic input validation
@@ -49,29 +48,26 @@ const ProfessorForm = React.memo(props => {
     <Card>
       <h2>Professor input form</h2>
       <form onSubmit={submitHandler}>
-        <div className="form-control">
-          <label htmlFor="fName">first name</label>
-          <input
-            placeholder={props.professor ? `${props.professor.fName}` : ''}
-            type="text"
-            id="fName"
-            value={profName}
-            onChange={fNameChangeHandler}
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="lName">last name</label>
-          <input
-            placeholder={props.professor ? `${props.professor.lName}` : ''}
-            type="text"
-            id="lName"
-            value={profLName}
-            onChange={lNameChangeHandler}
-          />
-        </div>
+        <BaseInput
+          placeholder={props.professor ? `${props.professor.fName}` : ''}
+          type="text"
+          id="fName"
+          value={profName}
+          onChange={fNameChangeHandler}
+          label={'First name:'}
+        />
+        <BaseInput
+          placeholder={props.professor ? `${props.professor.lName}` : ''}
+          type="text"
+          id="lName"
+          value={profLName}
+          onChange={lNameChangeHandler}
+          label={'Last name:'}
+        />
+
         <div>
           <button type="submit" className="add-btn">
-            Add student
+            Add professor
           </button>
         </div>
       </form>

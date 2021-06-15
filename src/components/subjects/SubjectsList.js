@@ -4,7 +4,6 @@ import db from '../firebase';
 import Card from '../UI/Card';
 import ModalProfList from './ModalProfList';
 import ModalStudentsList from './ModalStudentsList';
-import LoadSubjects from './LoadSubjects';
 
 const SubjectsList = props => {
   const match = useRouteMatch();
@@ -34,15 +33,6 @@ const SubjectsList = props => {
       })
     );
   }, []);
-  // useEffect(() => {
-  //   // LoadSubjects();
-  //   // const payload = LoadSubjects();
-  //   // console.log(payload);
-  //   // if (!userSubjects.find(x => (x.id = id))) {
-  //   //   setUserSubjects(subjects => [...subjects, payload]);
-  //   //   setIsLoading(false);
-  //   // }
-  // }, [userSubjects]);
 
   const removeSubjectHandler = subjectId => {
     let subjectRef = db.collection('subjects');

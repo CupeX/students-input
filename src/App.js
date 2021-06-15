@@ -7,15 +7,17 @@ import AddPage from './pages/AddPage';
 import AllStudentsPage from './pages/studentsPage/AllStudentsPage';
 import AddStudentPage from './pages/studentsPage/AddStudentPage';
 import EditStudentsPage from './pages/studentsPage/EditStudentPage';
-import StudentDetailsPage from './pages/studentsPage/StudentDetailsPage';
+// import StudentDetailsPage from './pages/studentsPage/StudentDetailsPage';
 import AllProfessorsPage from './pages/professorsPage/AllProfessorsPage';
 import AddProfessorsPage from './pages/professorsPage/AddProfessorsPage';
 import EditProfessorPage from './pages/professorsPage/EditProfessorPage';
-import ProfessorDetailsPage from './pages/professorsPage/ProffesorDetailsPage';
+// import ProfessorDetailsPage from './pages/professorsPage/ProffesorDetailsPage';
 import AllSubjectsPage from './pages/subjectsPage/AllSubjectsPage';
 import AddSubjectPage from './pages/subjectsPage/AddSubjectPage';
 import EditSubjectsPage from './pages/subjectsPage/EditSubjectPage';
-import SubjectDetailsPage from './pages/subjectsPage/SubjectDetailsPage';
+// import SubjectDetailsPage from './pages/subjectsPage/SubjectDetailsPage';
+// import SubjectDetailsTest from './components/subjects/SubjectDetailsTest';
+import LoadingData from './components/comon/LoadingData';
 
 function App() {
   return (
@@ -38,19 +40,19 @@ function App() {
           <AllProfessorsPage />
         </Route>
         <Route path="/students-input/all-students/details/:id" exact>
-          <StudentDetailsPage />
+          <LoadingData />
         </Route>
         <Route path="/students-input/all-students/edit/:id" exact>
           <EditStudentsPage />
         </Route>
         <Route path="/students-input/all-subjects/details/:id" exact>
-          <SubjectDetailsPage />
+          <LoadingData />
         </Route>
         <Route path="/students-input/all-subjects/edit/:id" exact>
           <EditSubjectsPage />
         </Route>
         <Route path="/students-input/all-professors/details/:id" exact>
-          <ProfessorDetailsPage />
+          <LoadingData />
         </Route>
         <Route path="/students-input/all-professors/edit/:id" exact>
           <EditProfessorPage />
