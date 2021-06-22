@@ -23,7 +23,7 @@ const DataProvider = props => {
 
       .get()
       .then(subjects => {
-        const profArray = [];
+        const subArray = [];
         subjects.forEach(subject => {
           let data = subject.data();
           let { id } = subject;
@@ -32,9 +32,9 @@ const DataProvider = props => {
             id,
             ...data,
           };
-          profArray.push(payload);
+          subArray.push(payload);
         });
-        setUserSubjects(profArray);
+        setUserSubjects(subArray);
       })
       .finally(() => {
         setIsLoadedSubjects(true);
@@ -90,10 +90,27 @@ const DataProvider = props => {
   const removeStudentHandler = (x, y) => {
     let postRef = db.collection(y);
     postRef.doc(x).delete();
-    setIsLoaded(false);
+    fatchStudents();
   };
 
-  console.log('isLoaded from context', isLoaded);
+  const fatchStudents = () => {
+    let studentRef = db.collection('students');
+    studentRef.get().then(students => {
+      const studArray = [];
+      students.forEach(student => {
+        let data = student.data();
+        let { id } = student;
+
+        let payload = {
+          id,
+          ...data,
+        };
+        studArray.push(payload);
+      });
+      setUserStudents(studArray);
+    });
+    console.log('userSubjects', userSubjects);
+  };
 
   return (
     <DataContext.Provider

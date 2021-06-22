@@ -9,8 +9,6 @@ const StudentsList = () => {
     useContext(DataContext);
   const [filteredList, setFilteredList] = useState([]);
 
-  console.log('isLoaded from students list', isLoaded);
-
   useEffect(() => {
     setFilteredList(userStudents);
   }, [isLoaded, userStudents]);
