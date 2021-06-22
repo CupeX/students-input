@@ -31,7 +31,7 @@ const DataProvider = props => {
   const removeStudentHandler = (x, y) => {
     let postRef = db.collection(y);
     postRef.doc(x).delete();
-    fetchStudents();
+    fetchAll();
   };
 
   const fetchStudents = () => {
