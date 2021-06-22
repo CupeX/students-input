@@ -1,38 +1,22 @@
-import { useEffect, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
 import db from '../firebase';
 import Card from '../UI/Card';
-
-// import './students.css';
 import { Button, ListGroup, ListGroupItem, Table } from 'reactstrap';
+import DataContext from '../../store/data-context.js';
 
 const StudentsList = () => {
-  const match = useRouteMatch();
-  const [userStudents, setUserStudents] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  let postRef = db.collection('students');
+  const { userStudents, isLoaded } = useContext(DataContext);
+  const [filteredList, setFilteredList] = useState([]);
 
   useEffect(() => {
-    postRef.get().then(students =>
-      students.forEach(student => {
-        let data = student.data();
-        let { id } = student;
+    setFilteredList(userStudents);
+  }, [isLoaded, userStudents]);
 
-        let payload = {
-          id,
-          ...data,
-        };
-
-        // check if there is allready students in list
-        if (!userStudents.find(x => (x.id = id))) {
-          setUserStudents(students => [...students, payload]);
-          setIsLoading(false);
-        }
-      })
-    );
-  }, []);
+  const match = useRouteMatch();
 
   const removeStudentHandler = studentId => {
+    let postRef = db.collection('students');
     postRef
       .doc(studentId)
       .delete()
@@ -61,7 +45,7 @@ const StudentsList = () => {
     userStudents.sort((a, b) => (a[sortProperty] > b[sortProperty] ? 1 : -1));
 
     const sorted = JSON.parse(JSON.stringify(userStudents));
-    setUserStudents(sorted);
+    setFilteredList(sorted);
   };
 
   let content = (
@@ -85,26 +69,28 @@ const StudentsList = () => {
   return (
     <Card>
       {content}
-      {isLoading && <h2>Loading...</h2>}
+      {!isLoaded && <h2>Loading...</h2>}
       <ListGroup className="mt-5">
-        {userStudents.map(st => (
+        {filteredList.map(st => (
           <ListGroupItem
             className="my-3 d-flex justify-content-between align-items-center "
             key={st.id}
             id={st.id}
           >
             <Table className="text-start w-50 ">
-              <tr>
-                <td>
-                  student:
-                  <strong>
-                    {st.fName} {st.lName}
-                  </strong>
-                </td>
-              </tr>
-              <tr>
-                <td>born: {st.year}</td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>
+                    student:
+                    <strong>
+                      {st.fName} {st.lName}
+                    </strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>born: {st.year}</td>
+                </tr>
+              </tbody>
             </Table>
 
             <div className="text-end">

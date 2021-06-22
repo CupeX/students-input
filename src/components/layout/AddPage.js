@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import Card from '../UI/Card';
 
-import './index.css';
-
 const AddNew = () => {
   return (
     <Card>

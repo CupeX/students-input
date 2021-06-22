@@ -1,7 +1,7 @@
-import Profesors from '../../components/professors/Profesors';
+import ProfessorsList from '../../components/professors/ProfessorsList';
 
 const AllProfessorsPage = () => {
-  return <Profesors />;
+  return <ProfessorsList />;
 };
 
 export default AllProfessorsPage;

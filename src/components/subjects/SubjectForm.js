@@ -23,6 +23,7 @@ const SubjectForm = React.memo(props => {
 
     const subjectData = {
       subject: enteredSubject,
+      professor: 'not assigned yet',
     };
 
     props.onAddSubject(subjectData);

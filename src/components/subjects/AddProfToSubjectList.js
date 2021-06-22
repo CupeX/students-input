@@ -1,18 +1,34 @@
+import { useContext } from 'react';
+import { Table } from 'reactstrap';
+import DataContext from '../../store/data-context.js';
+import db from '../firebase';
+
 const AddProffesorToSubjectList = props => {
+  const { userProfessors } = useContext(DataContext);
+  const filteredList = userProfessors.filter(
+    x => x.subject !== props.subjectId
+  );
+
+  const addProfessorToSubjectHandler = professorId => {
+    let profRef = db.collection('professors');
+    let subjRef = db.collection('subjects');
+    profRef.doc(professorId).update({ subject: props.subjectId });
+    subjRef.doc(props.subjectId).update({ professor: professorId });
+  };
+
   return (
     <section>
       <h2>all professors list</h2>
-      <table>
+      <Table>
         <thead>
           <tr>
             <th>first name</th>
             <th>last name</th>
-            <th>teaching</th>
-            <th style={{ textAlign: 'end' }}>add to subject</th>
+            <th>add to subject</th>
           </tr>
         </thead>
         <tbody>
-          {props.professors.map(st => (
+          {filteredList.map(st => (
             <tr key={st.id} id={st.id}>
               <td>
                 <span>{st.fName} </span>
@@ -20,12 +36,11 @@ const AddProffesorToSubjectList = props => {
               <td>
                 <span>{st.lName} </span>
               </td>
-              <td>{st.subject === props.subjectId ? 'yes' : 'x'}</td>
 
               <td className="btn-td delete-td">
                 <button
                   className="add-btn"
-                  onClick={() => props.onAddProfessorToSubject(st.id)}
+                  onClick={() => addProfessorToSubjectHandler(st.id)}
                 >
                   add
                 </button>
@@ -33,7 +48,7 @@ const AddProffesorToSubjectList = props => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </section>
   );
 };

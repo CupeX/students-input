@@ -14,7 +14,7 @@ import './MainNavigation.css';
 const MainNavigation = () => {
   const history = useHistory();
   const testing = e => {
-    history.push(`/students-input/${e}`);
+    history.push(`/${e}`);
   };
 
   const [isOpen, setIsOpen] = useState(false);
@@ -23,8 +23,8 @@ const MainNavigation = () => {
   return (
     <header>
       <Navbar className="px-5 py-3 justify-content-between" expand="md">
-        <NavbarBrand className="logo">
-          <Link to="/students-input">CupeX first app</Link>
+        <NavbarBrand className="logo" to="/">
+          CupeX first app
         </NavbarBrand>
 
         <NavbarToggler onClick={toggle} />
@@ -32,13 +32,13 @@ const MainNavigation = () => {
         <Collapse className="flex-grow-0" isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem className="px-2">
-              <Link to="/students-input/all-students">Students</Link>
+              <Link to="/all-students">Students</Link>
             </NavItem>
             <NavItem className="px-2">
-              <Link to="/students-input/all-subjects">Subjects</Link>
+              <Link to="/all-subjects">Subjects</Link>
             </NavItem>
             <NavItem className="px-2">
-              <Link to="/students-input/all-professors">Professors</Link>
+              <Link to="/all-professors">Professors</Link>
             </NavItem>
             <li>
               <select

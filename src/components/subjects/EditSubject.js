@@ -7,7 +7,6 @@ const EditSubject = () => {
   const params = useParams();
   const [subject, setSubject] = useState({});
   let subjectRef = db.collection('subjects').doc(params.id);
-  let profRef = db.collection('profesors');
 
   useEffect(() => {
     subjectRef.get().then(doc => {

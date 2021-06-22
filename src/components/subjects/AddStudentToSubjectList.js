@@ -1,11 +1,24 @@
+import { useContext } from 'react';
+import DataContext from '../../store/data-context.js';
+import { Table } from 'reactstrap';
+import db from '../firebase';
+
 const AddStudentToSubjectList = props => {
-  const filteredList = props.students.filter(
+  const { userStudents } = useContext(DataContext);
+  const filteredList = userStudents.filter(
     x => !Object.keys(x.subjects).includes(props.subjectId)
   );
 
+  const addStudentToSubjectHandler = studentId => {
+    let postRef = db.collection('students');
+    postRef
+      .doc(studentId)
+      .set({ subjects: { [props.subjectId]: '' } }, { merge: true });
+  };
+
   return (
     <section>
-      <table>
+      <Table>
         <thead>
           <tr>
             <th>first name</th>
@@ -26,7 +39,7 @@ const AddStudentToSubjectList = props => {
               <td className="btn-td delete-td">
                 <button
                   className="add-btn"
-                  onClick={() => props.onAddStudentToSubject(st.id)}
+                  onClick={() => addStudentToSubjectHandler(st.id)}
                 >
                   add
                 </button>
@@ -34,7 +47,7 @@ const AddStudentToSubjectList = props => {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     </section>
   );
 };

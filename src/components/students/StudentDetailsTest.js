@@ -1,12 +1,16 @@
+import { useContext } from 'react';
 import { useParams } from 'react-router';
 import { Table } from 'reactstrap';
 import Card from '../UI/Card';
+import DataContext from '../../store/data-context.js';
 
-const StudentDetailsTest = props => {
+const StudentDetailsTest = () => {
+  const { userStudents, userSubjects, userProfessors } =
+    useContext(DataContext);
+
   const params = useParams();
   const studentId = params.id;
-
-  const student = props.userStudents.find(x => x.id === studentId);
+  const student = userStudents.find(x => x.id === studentId);
 
   return (
     <Card>
@@ -43,17 +47,21 @@ const StudentDetailsTest = props => {
         </thead>
 
         <tbody>
-          {props.userSubjects.map(x => {
-            const prof = props.userProfessors.find(y => y.id === x.professor);
+          {userSubjects.map(x => {
+            const prof = userProfessors.find(y => y.id === x.professor);
 
             if (Object.keys(student.subjects).includes(x.id)) {
               return (
                 <tr key={x.id}>
                   <td className="w50-td">{x.subject}</td>
 
-                  <td className="w50-td">
-                    {prof.fName} {prof.lName}
-                  </td>
+                  {x.professor === 'not assigned yet' ? (
+                    <td>not assigned yet</td>
+                  ) : (
+                    <td className="w50-td">
+                      {prof.fName} {prof.lName}
+                    </td>
+                  )}
                 </tr>
               );
             }

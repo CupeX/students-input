@@ -1,8 +1,0 @@
-.addNewUl {
-  display: flex;
-  justify-content: space-evenly;
-}
-.addNewUl a {
-  text-decoration: none;
-  color: #333;
-}

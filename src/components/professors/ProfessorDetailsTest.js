@@ -1,12 +1,15 @@
+import { useContext } from 'react';
 import { useParams } from 'react-router';
 import { Table } from 'reactstrap';
 import Card from '../UI/Card';
+import DataContext from '../../store/data-context.js';
 
-const ProfessorDetailsTest = props => {
+const ProfessorDetailsTest = () => {
+  const { userSubjects, userProfessors } = useContext(DataContext);
   const params = useParams();
   const professorId = params.id;
 
-  const professor = props.userProfessors.find(x => x.id === professorId);
+  const professor = userProfessors.find(x => x.id === professorId);
 
   return (
     <Card>
@@ -29,14 +32,11 @@ const ProfessorDetailsTest = props => {
             <td>
               <span>{professor.lName} </span>
             </td>
-            {professor.subject === '' ? (
+            {professor.subject === 'not teaching yet' ? (
               <td>not teaching yet</td>
             ) : (
               <td>
-                {
-                  props.userSubjects.find(x => x.id === professor.subject)
-                    .subject
-                }
+                {userSubjects.find(x => x.id === professor.subject).subject}
               </td>
             )}
             <td>{professorId}</td>

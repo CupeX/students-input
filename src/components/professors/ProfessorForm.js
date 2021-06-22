@@ -26,7 +26,7 @@ const ProfessorForm = React.memo(props => {
     const professorData = {
       fName: profName,
       lName: profLName,
-      subject: '',
+      subject: 'not teaching yet',
     };
 
     props.onAddProfessor(professorData);
@@ -68,7 +68,7 @@ const ProfessorForm = React.memo(props => {
 
         <div>
           <Button type="submit" className="btn btn-success mt-4">
-            {props.profeesor ? 'save changes' : 'add profeesor'}
+            {props.professor ? 'save changes' : 'add profeesor'}
           </Button>
         </div>
       </form>

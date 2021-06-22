@@ -1,14 +1,19 @@
+import { useContext } from 'react';
 import { useParams } from 'react-router';
+
 import { Table } from 'reactstrap';
 import Card from '../UI/Card';
+import DataContext from '../../store/data-context.js';
 
 const SubjectDetailsTest = props => {
+  const { userStudents, userSubjects, userProfessors } =
+    useContext(DataContext);
   const params = useParams();
   const subjectId = params.id;
 
-  const subject = props.userSubjects.find(x => x.id === subjectId);
-  const professor = props.userProfessors.find(x => x.id === subject.professor);
-  const attendingStudents = props.userStudents.filter(x =>
+  const subject = userSubjects.find(x => x.id === subjectId);
+  const professor = userProfessors.find(x => x.id === subject.professor);
+  const attendingStudents = userStudents.filter(x =>
     Object.keys(x.subjects).includes(subjectId)
   );
 
@@ -30,9 +35,13 @@ const SubjectDetailsTest = props => {
               <span>{subject.subject} </span>
             </td>
             <td>
-              <span>
-                {professor.fName} {professor.lName}
-              </span>
+              {subject.professor === 'not assigned yet' ? (
+                'not assigned yet'
+              ) : (
+                <span>
+                  {professor.fName} {professor.lName}
+                </span>
+              )}
             </td>
             <td>{subjectId}</td>
           </tr>

@@ -1,39 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { Button, ButtonGroup, ListGroup, ListGroupItem } from 'reactstrap';
+import { Button, ListGroup, ListGroupItem } from 'reactstrap';
 import db from '../firebase';
 import Card from '../UI/Card';
 import ModalProfList from './ModalProfList';
 import ModalStudentsList from './ModalStudentsList';
+import DataContext from '../../store/data-context.js';
 
-const SubjectsList = props => {
-  const match = useRouteMatch();
-  const [userSubjects, setUserSubjects] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+const SubjectsList = () => {
+  const { userSubjects, isLoaded } = useContext(DataContext);
   const [subjectId, setSubjectId] = useState('');
   const [studentsModal, setStudentsModal] = useState(false);
   const [professorsModal, setProfessorsModal] = useState(false);
-
-  useEffect(() => {
-    let subjectRef = db.collection('subjects');
-    subjectRef.get().then(subjects =>
-      subjects.forEach(subject => {
-        let data = subject.data();
-        let { id } = subject;
-
-        let payload = {
-          id,
-          ...data,
-        };
-
-        // check if there is allready students in list
-        if (!userSubjects.find(x => (x.id = id))) {
-          setUserSubjects(subjects => [...subjects, payload]);
-          setIsLoading(false);
-        }
-      })
-    );
-  }, []);
+  const match = useRouteMatch();
 
   const removeSubjectHandler = subjectId => {
     let subjectRef = db.collection('subjects');
@@ -68,8 +47,7 @@ const SubjectsList = props => {
     const sortProperty = e;
     userSubjects.sort((a, b) => (a[sortProperty] > b[sortProperty] ? 1 : -1));
 
-    const sorted = JSON.parse(JSON.stringify(userSubjects));
-    setUserSubjects(sorted);
+    // const sorted = JSON.parse(JSON.stringify(userSubjects));
   };
 
   let content = (
@@ -92,7 +70,7 @@ const SubjectsList = props => {
   return (
     <Card>
       {content}
-      {isLoading && <h2>Loading...</h2>}
+      {!isLoaded && <h2>Loading...</h2>}
       {studentsModal && (
         <ModalStudentsList
           onCloseModal={closeStudentsModal}
