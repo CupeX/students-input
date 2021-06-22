@@ -25,7 +25,6 @@ const DataProvider = props => {
 
   useEffect(() => {
     fetchAll();
-    setIsLoadedSubjects(true);
   }, []);
 
   const removeStudentHandler = (x, y) => {
