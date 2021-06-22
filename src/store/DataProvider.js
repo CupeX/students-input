@@ -87,9 +87,23 @@ const DataProvider = props => {
       });
   }, []);
 
+  const removeStudentHandler = (x, y) => {
+    let postRef = db.collection(y);
+    postRef.doc(x).delete();
+    setIsLoaded(false);
+  };
+
+  console.log('isLoaded from context', isLoaded);
+
   return (
     <DataContext.Provider
-      value={{ userSubjects, userProfessors, userStudents, isLoaded }}
+      value={{
+        userSubjects,
+        userProfessors,
+        userStudents,
+        isLoaded,
+        removeStudentHandler,
+      }}
     >
       {props.children}
     </DataContext.Provider>

@@ -46,7 +46,7 @@ const StudentForm = React.memo(props => {
     setEnteredLName('');
     setEnteredYear('');
     setEnteredPass('');
-    history.replace('/students-input/all-students');
+    history.replace('/all-students');
   };
 
   const fNameChangeHandler = e => {

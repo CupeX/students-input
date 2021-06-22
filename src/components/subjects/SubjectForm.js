@@ -30,7 +30,7 @@ const SubjectForm = React.memo(props => {
 
     setEnteredSubject('');
 
-    history.replace('/students-input/all-subjects');
+    history.replace('/all-subjects');
   };
 
   const subjectChangeHandler = e => {

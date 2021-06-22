@@ -1,13 +1,15 @@
 import { useContext, useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import db from '../firebase';
 import Card from '../UI/Card';
 import { Button, ListGroup, ListGroupItem, Table } from 'reactstrap';
 import DataContext from '../../store/data-context.js';
 
 const StudentsList = () => {
-  const { userStudents, isLoaded } = useContext(DataContext);
+  const { userStudents, isLoaded, removeStudentHandler } =
+    useContext(DataContext);
   const [filteredList, setFilteredList] = useState([]);
+
+  console.log('isLoaded from students list', isLoaded);
 
   useEffect(() => {
     setFilteredList(userStudents);
@@ -15,24 +17,14 @@ const StudentsList = () => {
 
   const match = useRouteMatch();
 
-  const removeStudentHandler = studentId => {
-    let postRef = db.collection('students');
-    postRef
-      .doc(studentId)
-      .delete()
-      .then(() => {
-        console.log('Student successfully deleted!');
-      });
-  };
-
-  const checkPassHandler = studentId => {
+  const checkPassHandler = (studentId, y) => {
     const passInput = prompt('enter password');
     const getPass = userStudents
       .filter(st => st.id === studentId)
       .map(st => st.password);
 
     if (+passInput === +getPass) {
-      removeStudentHandler(studentId);
+      removeStudentHandler(studentId, y);
       console.log('student deleted');
     } else {
       alert('wrong password!');
@@ -107,7 +99,7 @@ const StudentsList = () => {
               <Button
                 className="btn mx-1"
                 color="danger"
-                onClick={() => checkPassHandler(st.id)}
+                onClick={() => checkPassHandler(st.id, 'students')}
               >
                 delete
               </Button>

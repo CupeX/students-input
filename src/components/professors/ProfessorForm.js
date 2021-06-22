@@ -35,7 +35,7 @@ const ProfessorForm = React.memo(props => {
     setProfName('');
     setProfLName('');
 
-    history.replace('/students-input/all-professors');
+    history.replace('/all-professors');
   };
 
   const fNameChangeHandler = e => {
