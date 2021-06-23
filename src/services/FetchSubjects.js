@@ -1,27 +1,24 @@
-import { useState } from 'react';
-import db from '../components/firebase';
+import db from './firebase';
 
 const FetchSubjects = () => {
-  const [subjects, setSubjects] = useState([]);
+  return new Promise((res, rej) => {
+    db.collection('subjects')
+      .get()
+      .then(subjects => {
+        const subArray = [];
+        subjects.forEach(subject => {
+          let data = subject.data();
+          let { id } = subject;
 
-  db.collection('subjects')
-    .get()
-    .then(subjects => {
-      const subArray = [];
-      subjects.forEach(subject => {
-        let data = subject.data();
-        let { id } = subject;
-
-        let payload = {
-          id,
-          ...data,
-        };
-        subArray.push(payload);
+          let payload = {
+            id,
+            ...data,
+          };
+          subArray.push(payload);
+        });
+        res(subArray);
       });
-      setSubjects(subArray);
-    });
-
-  return subjects;
+  });
 };
 
 export default FetchSubjects;

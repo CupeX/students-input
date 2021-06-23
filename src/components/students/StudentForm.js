@@ -11,7 +11,6 @@ const StudentForm = React.memo(props => {
   const [enteredYear, setEnteredYear] = useState('');
   const [enteredPass, setEnteredPass] = useState('');
   const [formValid, setFormValid] = useState(false);
-  const [student, setStudent] = useState({});
 
   const history = useHistory();
 
@@ -25,7 +24,6 @@ const StudentForm = React.memo(props => {
       enteredYear === '' ||
       enteredPass === ''
     ) {
-      setFormValid(false);
       alert('pls fill all fields');
       return;
     }
@@ -38,7 +36,6 @@ const StudentForm = React.memo(props => {
       password: enteredPass,
       subjects: {},
     };
-    setStudent(student);
     props.onAddStudent(student);
 
     // clearing input fields

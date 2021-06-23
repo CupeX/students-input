@@ -1,27 +1,24 @@
-import { useState } from 'react';
-import db from '../components/firebase';
+import db from './firebase';
 
 const FetchStudents = () => {
-  const [students, setStudents] = useState([]);
+  return new Promise((res, rej) => {
+    db.collection('students')
+      .get()
+      .then(students => {
+        const studArray = [];
+        students.forEach(student => {
+          let data = student.data();
+          let { id } = student;
 
-  db.collection('students')
-    .get()
-    .then(students => {
-      const studArray = [];
-      students.forEach(student => {
-        let data = student.data();
-        let { id } = student;
-
-        let payload = {
-          id,
-          ...data,
-        };
-        studArray.push(payload);
+          let payload = {
+            id,
+            ...data,
+          };
+          studArray.push(payload);
+        });
+        res(studArray);
       });
-      setStudents(studArray);
-    });
-
-  return students;
+  });
 };
 
 export default FetchStudents;

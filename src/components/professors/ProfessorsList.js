@@ -1,57 +1,29 @@
+import { useContext, useState, useEffect } from 'react';
 import { Link, useRouteMatch } from 'react-router-dom';
-import { useContext } from 'react';
-import db from '../firebase';
 import { ListGroup, ListGroupItem, Button } from 'reactstrap';
-
 import DataContext from '../../store/data-context.js';
 import Card from '../UI/Card';
 
 const ProfessorsList = () => {
   const match = useRouteMatch();
+  const [filteredList, setFilteredList] = useState([]);
 
-  const { userProfessors, isLoaded } = useContext(DataContext);
+  const { userProfessors, isLoaded, removeHandler, content } =
+    useContext(DataContext);
 
-  const removeProfessorHandler = professorId => {
-    let postRef = db.collection('professors');
-    postRef
-      .doc(professorId)
-      .delete()
-      .then(() => {
-        console.log('professor successfully deleted!');
-      });
-  };
-
-  // sorting
-  const sortHandler = e => {
-    const sortProperty = e;
-    userProfessors.sort((a, b) => (a[sortProperty] > b[sortProperty] ? 1 : -1));
-
-    // const sorted = JSON.parse(JSON.stringify(userSubjects));
-  };
-
-  let content = (
-    <div>
-      <h2> All Subjects</h2>
-
-      <select
-        className="sort-btn"
-        onChange={e => {
-          sortHandler(e.target.value);
-        }}
-      >
-        <option value="order">sort by:</option>
-        <option value="fName">First Name</option>
-        <option value="lName">Last name</option>
-      </select>
-    </div>
-  );
+  useEffect(() => {
+    setFilteredList(userProfessors);
+  }, [isLoaded, userProfessors]);
 
   return (
     <Card>
-      {content}
+      <h2> All Students</h2>
+
+      {content(userProfessors, 'userProfessors', 'fName', 'lName')}
+
       {!isLoaded && <h2>Loading...</h2>}
       <ListGroup className="mt-5">
-        {userProfessors.map(st => (
+        {filteredList.map(st => (
           <ListGroupItem
             className="my-3 py-4 d-flex justify-content-between align-items-center "
             key={st.id}
@@ -79,7 +51,7 @@ const ProfessorsList = () => {
               <Button
                 className="btn mx-1"
                 color="danger"
-                onClick={() => removeProfessorHandler(st.id)}
+                onClick={() => removeHandler(st.id, 'professors')}
               >
                 delete
               </Button>

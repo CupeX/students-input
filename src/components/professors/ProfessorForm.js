@@ -17,7 +17,6 @@ const ProfessorForm = React.memo(props => {
 
     // basic input validation
     if (profName === '' || profLName === '') {
-      setFormValid(false);
       alert('pls fill all fields');
       return;
     }

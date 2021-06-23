@@ -5,7 +5,7 @@ import { Button, ListGroup, ListGroupItem, Table } from 'reactstrap';
 import DataContext from '../../store/data-context.js';
 
 const StudentsList = () => {
-  const { userStudents, isLoaded, removeStudentHandler } =
+  const { userStudents, isLoaded, removeHandler, content } =
     useContext(DataContext);
   const [filteredList, setFilteredList] = useState([]);
 
@@ -22,43 +22,19 @@ const StudentsList = () => {
       .map(st => st.password);
 
     if (passInput === password) {
-      removeStudentHandler(studentId, y);
+      removeHandler(studentId, y);
       console.log('student deleted');
     } else {
       alert('wrong password!');
     }
   };
 
-  // sorting
-  const sortHandler = e => {
-    const sortProperty = e;
-    userStudents.sort((a, b) => (a[sortProperty] > b[sortProperty] ? 1 : -1));
-
-    const sorted = JSON.parse(JSON.stringify(userStudents));
-    setFilteredList(sorted);
-  };
-
-  let content = (
-    <div>
-      <h2> All Students</h2>
-
-      <select
-        className="sort-btn"
-        onChange={e => {
-          sortHandler(e.target.value);
-        }}
-      >
-        <option value="order">sort by:</option>
-        <option value="fName">First Name</option>
-        <option value="lName">Last name</option>
-        <option value="year">Date of Birth</option>
-      </select>
-    </div>
-  );
-
   return (
     <Card>
-      {content}
+      <h2> All Students</h2>
+
+      {content(userStudents, 'userStudents', 'fName', 'lName', 'year')}
+
       {!isLoaded && <h2>Loading...</h2>}
       <ListGroup className="mt-5">
         {filteredList.map(st => (

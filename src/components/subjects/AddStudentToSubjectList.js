@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import DataContext from '../../store/data-context.js';
 import { Table } from 'reactstrap';
-import db from '../firebase';
+import db from '../../services/firebase';
 
 const AddStudentToSubjectList = props => {
   const { userStudents } = useContext(DataContext);

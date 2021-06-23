@@ -15,7 +15,6 @@ const SubjectForm = React.memo(props => {
     e.preventDefault();
 
     if (enteredSubject === '') {
-      setFormValid(false);
       alert('pls enter subject name');
       return;
     }
