@@ -1,7 +1,18 @@
-import React from 'react';
-import { Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
+import React, { useState } from 'react';
+import {
+  Button,
+  Input,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+} from 'reactstrap';
 
 const BaseInput = props => {
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const showPasswordHandler = () => {
+    setPasswordVisible(!passwordVisible);
+  };
   return (
     <InputGroup className="py-1">
       <InputGroupAddon className="w-25" addonType="prepend">
@@ -9,11 +20,12 @@ const BaseInput = props => {
       </InputGroupAddon>
       <Input
         placeholder={props.placeholder}
-        type={props.type}
+        type={passwordVisible ? 'text' : props.type}
         id={props.fName}
         value={props.value}
         onChange={props.onChange}
       />
+      {props.test && <Button onClick={showPasswordHandler}>&#x1F441;</Button>}
     </InputGroup>
   );
 };

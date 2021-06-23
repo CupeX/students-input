@@ -17,11 +17,11 @@ const StudentsList = () => {
 
   const checkPassHandler = (studentId, y) => {
     const passInput = prompt('enter password');
-    const getPass = userStudents
+    const [password] = userStudents
       .filter(st => st.id === studentId)
       .map(st => st.password);
 
-    if (+passInput === +getPass) {
+    if (passInput === password) {
       removeStudentHandler(studentId, y);
       console.log('student deleted');
     } else {

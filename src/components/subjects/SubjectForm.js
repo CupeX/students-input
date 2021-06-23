@@ -49,7 +49,6 @@ const SubjectForm = React.memo(props => {
           onChange={subjectChangeHandler}
           label={'Subject title:'}
         />
-
         <div>
           <Button type="submit" className="btn btn-success mt-4">
             {props.subject ? 'save changes' : 'add subject'}

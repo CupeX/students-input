@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import DataContext from './data-context';
 import db from '../components/firebase';
+import FetchStudents from '../services/FetchStudents';
+import FetchSubjects from '../services/FetchSubjects';
+import FetchProfessors from '../services/FetchProfessors';
 
 const DataProvider = props => {
   const [userSubjects, setUserSubjects] = useState({});
@@ -17,84 +20,89 @@ const DataProvider = props => {
     }
   }, [isLoadedStudents, isLoadedSubjects, isLoadedProfessors, isLoaded]);
 
-  const fetchAll = () => {
-    fetchStudents();
-    fetchSubjects();
-    fetchProfessors();
-  };
+  FetchSubjects();
+  console.log(FetchSubjects());
+  // FetchStudents();
+  // FetchProfessors();
 
-  useEffect(() => {
-    fetchAll();
-  }, []);
+  // const fetchAll = () => {
+  //   fetchStudents();
+  //   fetchSubjects();
+  //   fetchProfessors();
+  // };
 
-  const removeStudentHandler = (x, y) => {
-    let postRef = db.collection(y);
-    postRef.doc(x).delete();
-    fetchAll();
-  };
+  // useEffect(() => {
+  //   fetchAll();
+  // }, []);
 
-  const fetchStudents = () => {
-    let studentRef = db.collection('students');
-    studentRef
-      .get()
-      .then(students => {
-        const studArray = [];
-        students.forEach(student => {
-          let data = student.data();
-          let { id } = student;
+  // const removeStudentHandler = (x, y) => {
+  //   let postRef = db.collection(y);
+  //   postRef.doc(x).delete();
+  //   fetchAll();
+  // };
 
-          let payload = {
-            id,
-            ...data,
-          };
-          studArray.push(payload);
-        });
-        setUserStudents(studArray);
-      })
-      .finally(setIsLoadedStudents(true));
-  };
+  // const fetchStudents = () => {
+  //   let studentRef = db.collection('students');
+  //   studentRef
+  //     .get()
+  //     .then(students => {
+  //       const studArray = [];
+  //       students.forEach(student => {
+  //         let data = student.data();
+  //         let { id } = student;
 
-  const fetchSubjects = () => {
-    let subjectRef = db.collection('subjects');
-    subjectRef
-      .get()
-      .then(subjects => {
-        const subArray = [];
-        subjects.forEach(subject => {
-          let data = subject.data();
-          let { id } = subject;
+  //         let payload = {
+  //           id,
+  //           ...data,
+  //         };
+  //         studArray.push(payload);
+  //       });
+  //       setUserStudents(studArray);
+  //     })
+  //     .finally(setIsLoadedStudents(true));
+  // };
 
-          let payload = {
-            id,
-            ...data,
-          };
-          subArray.push(payload);
-        });
-        setUserSubjects(subArray);
-      })
-      .finally(setIsLoadedSubjects(true));
-  };
+  // const fetchSubjects = () => {
+  //   let subjectRef = db.collection('subjects');
+  //   subjectRef
+  //     .get()
+  //     .then(subjects => {
+  //       const subArray = [];
+  //       subjects.forEach(subject => {
+  //         let data = subject.data();
+  //         let { id } = subject;
 
-  const fetchProfessors = () => {
-    let profRef = db.collection('professors');
-    profRef
-      .get()
-      .then(professors => {
-        const profArray = [];
-        professors.forEach(professor => {
-          let data = professor.data();
-          let { id } = professor;
+  //         let payload = {
+  //           id,
+  //           ...data,
+  //         };
+  //         subArray.push(payload);
+  //       });
+  //       setUserSubjects(subArray);
+  //     })
+  //     .finally(setIsLoadedSubjects(true));
+  // };
 
-          let payload = {
-            id,
-            ...data,
-          };
-          profArray.push(payload);
-        });
-        setUserProfessors(profArray);
-      })
-      .finally(setIsLoadedProfessors(true));
-  };
+  // const fetchProfessors = () => {
+  //   let profRef = db.collection('professors');
+  //   profRef
+  //     .get()
+  //     .then(professors => {
+  //       const profArray = [];
+  //       professors.forEach(professor => {
+  //         let data = professor.data();
+  //         let { id } = professor;
+
+  //         let payload = {
+  //           id,
+  //           ...data,
+  //         };
+  //         profArray.push(payload);
+  //       });
+  //       setUserProfessors(profArray);
+  //     })
+  //     .finally(setIsLoadedProfessors(true));
+  // };
 
   return (
     <DataContext.Provider
@@ -103,7 +111,7 @@ const DataProvider = props => {
         userProfessors,
         userStudents,
         isLoaded,
-        removeStudentHandler,
+        // removeStudentHandler,
       }}
     >
       {props.children}

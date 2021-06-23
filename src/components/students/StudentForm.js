@@ -98,11 +98,12 @@ const StudentForm = React.memo(props => {
 
           <BaseInput
             placeholder={props.student ? `${props.student.password}` : ''}
-            type="number"
+            type="password"
             id="pass"
             value={enteredPass}
             onChange={passChangeHandler}
             label={'Password:'}
+            test="test"
           />
 
           <div>
